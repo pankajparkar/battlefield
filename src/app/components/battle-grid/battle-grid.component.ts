@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'bf-battle-grid',
   templateUrl: './battle-grid.component.html',
-  styleUrls: ['./battle-grid.component.scss']
+  styleUrls: ['./battle-grid.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BattleGridComponent implements OnInit {
   battleGrids = this.generateGrid(10);
