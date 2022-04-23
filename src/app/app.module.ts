@@ -3,14 +3,14 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SheepComponent } from './components/sheep/sheep.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { BattleGridComponent } from './components/battle-grid/battle-grid.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SheepComponent,
-    NavbarComponent
+    NavbarComponent,
+    BattleGridComponent
   ],
   imports: [
     BrowserModule,

@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SheepComponent } from './sheep.component';
+import { BattleGridComponent } from './battle-grid.component';
 
-describe('SheepComponent', () => {
-  let component: SheepComponent;
-  let fixture: ComponentFixture<SheepComponent>;
+describe('BattleGridComponent', () => {
+  let component: BattleGridComponent;
+  let fixture: ComponentFixture<BattleGridComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SheepComponent ]
+      declarations: [ BattleGridComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SheepComponent);
+    fixture = TestBed.createComponent(BattleGridComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
