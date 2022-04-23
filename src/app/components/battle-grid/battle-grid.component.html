@@ -1,5 +1,7 @@
 <div class="battle-grid">
-    <ng-container *ngFor="let battleGrid of battleGrids">
-        <bf-sheep></bf-sheep>
-    </ng-container>
+    <div class="battle-grid-row" *ngFor="let battleGrid of battleGrids">
+        <div *ngFor="let col of battleGrid">
+            <bf-ship></bf-ship>
+        </div>
+    </div>
 </div>

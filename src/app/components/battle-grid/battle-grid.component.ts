@@ -6,15 +6,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./battle-grid.component.scss']
 })
 export class BattleGridComponent implements OnInit {
-  battleGrids = [
-    this.getArray(),
-    this.getArray(),
-  ];
+  battleGrids = this.generateGrid(10);
 
-  getArray() {
-    const array = new Array(10);
+  generateArray(num: number) {
+    const array = new Array(num);
     array.fill(0);
     return array;
+  }
+
+  generateGrid(num: number) {
+    const array = this.generateArray(num);
+    return array.map(()=> this.generateArray(num));
   }
 
   constructor() { }

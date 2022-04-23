@@ -5,12 +5,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { BattleGridComponent } from './components/battle-grid/battle-grid.component';
+import { ShipComponent } from './components/ship/ship.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    BattleGridComponent
+    BattleGridComponent,
+    ShipComponent
   ],
   imports: [
     BrowserModule,
