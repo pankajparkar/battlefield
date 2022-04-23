@@ -1,0 +1,23 @@
+.cargo-port-platform {
+
+    .vertical-ships {
+        display: flex;
+    }
+    
+    .horizontal-ships {
+        display: flex;
+        flex-flow: column;
+
+        .ship {
+            display: flex;
+        }
+    }
+
+    .ship {
+        padding: 5px;
+
+        .ship-block {
+            border: 1px solid red;
+        }
+    }
+}
