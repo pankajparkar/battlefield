@@ -6,13 +6,15 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { BattleGridComponent } from './components/battle-grid/battle-grid.component';
 import { ShipComponent } from './components/ship/ship.component';
+import { CargoPortComponent } from './components/cargo-port/cargo-port.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     BattleGridComponent,
-    ShipComponent
+    ShipComponent,
+    CargoPortComponent
   ],
   imports: [
     BrowserModule,
