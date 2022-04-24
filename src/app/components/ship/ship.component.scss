@@ -1,7 +1,10 @@
 :host {
+    box-sizing: border-box;
     display: flex;
     width: 50px;
     height: 50px;
-    // TODO: remove after debugging khallas
-    border: 1px solid red;
+    
+    &.is-ship {
+        border: 1px solid blue;
+    }
 }

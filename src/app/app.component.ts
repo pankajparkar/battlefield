@@ -1,4 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
+import { FleetPosition } from './models';
+import { FleetPositionsService } from './services/fleet-positions.service';
 
 @Component({
   selector: 'bf-root',
@@ -6,4 +8,11 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
+
+  positions: FleetPosition = this.fleetPosition.getPositions();
+
+  constructor(
+    private fleetPosition: FleetPositionsService,
+  ) {
+  }
 }
