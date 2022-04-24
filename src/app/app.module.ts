@@ -8,6 +8,7 @@ import { BattleGridComponent } from './components/battle-grid/battle-grid.compon
 import { ShipComponent } from './components/ship/ship.component';
 import { CargoPortComponent } from './components/cargo-port/cargo-port.component';
 import { PlayDetailsComponent } from './components/play-details/play-details.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { PlayDetailsComponent } from './components/play-details/play-details.com
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
