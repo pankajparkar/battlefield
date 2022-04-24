@@ -10,6 +10,16 @@ import { CargoPortComponent } from './components/cargo-port/cargo-port.component
 import { PlayDetailsComponent } from './components/play-details/play-details.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { MatMenuModule } from '@angular/material/menu';
+import { MatToolbarModule } from '@angular/material/toolbar';
+
+// TODO: move mat modules to specific subm modules
+
+const matModules = [
+  MatMenuModule,
+  MatToolbarModule,
+];
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,9 +30,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     PlayDetailsComponent
   ],
   imports: [
+    ...matModules,
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
