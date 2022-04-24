@@ -13,6 +13,12 @@ export class AppComponent {
 
   constructor(
     private fleetPosition: FleetPositionsService,
-  ) {
+  ) { }
+
+  get showPort() {
+    return [
+      ...this.positions.horizontal,
+      ...this.positions.vertical,
+    ].length !== 8
   }
 }

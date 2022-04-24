@@ -1,7 +1,7 @@
 <div class="battle-field">
     <bf-navbar></bf-navbar>
     <div class="content">
-        <bf-cargo-port></bf-cargo-port>
+        <bf-cargo-port *ngIf="showPort"></bf-cargo-port>
         <bf-battle-grid [positions]="positions"></bf-battle-grid>
     </div>
 </div>
