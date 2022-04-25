@@ -10,6 +10,7 @@ import { FleetPosition } from 'src/app/models';
 export class BattleGridComponent implements OnInit {
 
   battleGrids = this.generateGrid(10);
+
   private _positions: FleetPosition = {
     vertical: [],
     horizontal: []
@@ -18,6 +19,9 @@ export class BattleGridComponent implements OnInit {
   @Input() get positions() {
     return this._positions;
   }
+
+  constructor() { }
+
   set positions(pos: FleetPosition) {
     this._positions = pos;
     this.battleGrids = this.generateGrid(10);
@@ -47,7 +51,9 @@ export class BattleGridComponent implements OnInit {
     return array.map((_, index)=> this.generateArray(num, index));
   }
 
-  constructor() { }
+  attack(el: number[]) {
+    
+  }
 
   ngOnInit(): void {
   }

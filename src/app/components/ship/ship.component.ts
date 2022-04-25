@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, HostBinding, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, HostBinding, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'bf-ship',
@@ -10,6 +10,8 @@ export class ShipComponent implements OnInit {
 
   @HostBinding('class.is-ship')
   @Input() isShip = false;
+
+  @Output() onAttack = new EventEmitter<number[]>();
 
   constructor() { }
 

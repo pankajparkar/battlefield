@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
+import { FleetPosition, Player } from '../models';
 
-const positions = {
+const players: Player[] = [
+];
+
+const positions: FleetPosition = {
   horizontal: [
     [[1,1], [1,2], [1,3], [1,4]],
     [[3,1], [3,2], [3,3]],

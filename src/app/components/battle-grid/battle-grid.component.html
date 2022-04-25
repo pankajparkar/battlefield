@@ -1,7 +1,7 @@
 <div class="battle-grid">
     <div class="battle-grid-row" *ngFor="let battleGrid of battleGrids">
         <div *ngFor="let col of battleGrid">
-            <bf-ship [isShip]="col"></bf-ship>
+            <bf-ship (onAttack)="attack($event)" [isShip]="col"></bf-ship>
         </div>
     </div>
 </div>
