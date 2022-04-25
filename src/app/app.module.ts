@@ -12,6 +12,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { CurrentPlayerComponent } from './components/current-player/current-player.component';
 
 // TODO: move mat modules to specific subm modules
 
@@ -27,7 +28,8 @@ const matModules = [
     BattleGridComponent,
     ShipComponent,
     CargoPortComponent,
-    PlayDetailsComponent
+    PlayDetailsComponent,
+    CurrentPlayerComponent
   ],
   imports: [
     ...matModules,
