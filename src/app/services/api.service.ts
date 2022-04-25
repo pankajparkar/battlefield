@@ -6,4 +6,29 @@ import { Injectable } from '@angular/core';
 export class ApiService {
 
   constructor() { }
+
+  getPlayers() {
+
+  }
+
+  updatePlayers() {
+
+  }
+
+  clearPlayer() {
+    
+  }
+
+  getPositions() {
+
+  }
+
+  updatePositions() {
+
+  }
+
+  clearPositions() {
+
+  }
+
 }
