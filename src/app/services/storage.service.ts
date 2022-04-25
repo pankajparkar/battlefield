@@ -7,12 +7,16 @@ export class StorageService {
 
   constructor() { }
 
-  get(key: string) {
-    const result = localStorage.getItem(key);
+  private getJSON(key: string) {
+    return JSON.parse(localStorage.getItem(key) ?? '{}');
+  }
+
+  get<T>(key: string) {
+    const result: unknown = localStorage.getItem(key);
     try {
-      return JSON.parse(result ?? '{}');
+      return JSON.parse(result as string) as T;
     } catch (error) {
-      return result;
+      return result as T;
     }
   }
 
@@ -25,14 +29,14 @@ export class StorageService {
     }
   }
 
-  getByProperty(key: string, prop: string) {
-    const result = JSON.parse(localStorage.getItem(key) || '{}');
-    return result[prop];
+  getByProperty<T>(key: string, prop: string) {
+    const result = this.getJSON(key);
+    return result[prop] as T;
   }
 
   setByProperty(key: string, prop: string, propValue: unknown) {
-    const result = JSON.parse(localStorage.getItem(key) || '{}');
-    result[prop] = propValue || '';
+    const result = this.getJSON(key);
+    result[prop] = propValue ?? '';
     this.set(key, result);
   }
 
@@ -45,7 +49,7 @@ export class StorageService {
   }
 
   removeProperty(key: string, prop: string) {
-    const result = JSON.parse(localStorage.getItem(key) || '{}');
+    const result = this.getJSON(key);
     delete result[prop];
     this.set(key, result);
   }

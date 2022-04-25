@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FleetPosition, Player } from '../models';
-
-const players: Player[] = [
-];
+import { ApiService } from './api.service';
 
 const positions: FleetPosition = {
   horizontal: [
@@ -19,12 +17,30 @@ const positions: FleetPosition = {
   ],
 };
 
+const players: Player[] = [
+  {
+    id: '123',
+    player: 'Pankaj',
+    positions,
+  },
+  {
+    id: '123',
+    player: 'Pankaj',
+    positions,
+  }
+];
+
 @Injectable({
   providedIn: 'root'
 })
 export class FleetPositionsService {
 
-  constructor() { }
+  constructor(
+    private apiService: ApiService
+  ) { 
+    // TODO: remove this after adding manipulation logic
+    this.apiService.updatePlayers(players)
+  }
 
   getPositions() {
     return positions;
