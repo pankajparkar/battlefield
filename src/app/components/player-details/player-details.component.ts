@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Player } from '../../models';
+import { ApiService } from '../../services';
 
 @Component({
   selector: 'bf-player-details',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PlayerDetailsComponent implements OnInit {
 
-  constructor() { }
+  players: Player[] = this.apiService.getPlayers();
 
-  ngOnInit(): void {
-  }
+  constructor(
+    private apiService: ApiService,
+  ) { }
+
+  ngOnInit(): void { }
 
 }

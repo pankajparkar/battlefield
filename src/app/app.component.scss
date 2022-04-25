@@ -1,6 +1,11 @@
 .content {
     display: flex;
 
+    &.disable-overlay {
+        opacity: 0.4;
+        pointer-events: none;
+    }
+
     bf-cargo-port {
         width: 200px;
     }

@@ -39,10 +39,34 @@ export class FleetPositionsService {
     private apiService: ApiService
   ) { 
     // TODO: remove this after adding manipulation logic
-    this.apiService.updatePlayers(players)
+    // this.apiService.updatePlayers(players)
   }
 
-  getPositions() {
-    return positions;
+  uuid() {
+    let result, i, j;
+    result = '';
+    for(let j=0; j<32; j++) {
+      if( j == 8 || j == 12 || j == 16 || j == 20)
+        result = result + '-';
+      i = Math.floor(Math.random()*16).toString(16).toUpperCase();
+      result = result + i;
+    }
+    return result;
+  }
+
+  getPlayer() {
+    return {
+      id: this.uuid(),
+      player: '',
+      positions,
+    }
+  }
+
+  getPlayers() {
+    return this.apiService.getPlayers();
+  }
+
+  updatePlayers(players: Player[]) {
+    this.apiService.updatePlayers(players);
   }
 }

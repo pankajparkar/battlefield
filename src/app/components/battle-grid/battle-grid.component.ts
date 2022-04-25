@@ -36,8 +36,8 @@ export class BattleGridComponent implements OnInit {
   generateArray(num: number, rowIndex: number) {
     const array = this.generateEmptyArray(num);
     const positions = [
-      ...this.positions?.horizontal.flat(1) || [],
-      ...this.positions?.vertical.flat(1) || []
+      ...(this.positions?.horizontal ?? []).flat(1) || [],
+      ...(this.positions?.vertical ?? []).flat(1) || []
     ];
     return array.map((_, index) => 
       positions.some(position => {

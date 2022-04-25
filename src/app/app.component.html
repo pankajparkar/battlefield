@@ -1,8 +1,8 @@
 <div class="battle-field">
     <bf-navbar></bf-navbar>
-    <div class="content">
+    <div class="content" [ngClass]="{ 'disable-overlay': !players.length }">
         <bf-cargo-port *ngIf="showPort"></bf-cargo-port>
         <bf-battle-grid [positions]="positions"></bf-battle-grid>
     </div>
-    <!-- <bf-play-details></bf-play-details> -->
+    <bf-player-details></bf-player-details>
 </div>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FleetPosition } from './models';
+import { FleetPosition, Player } from './models';
 import { FleetPositionsService } from './services/fleet-positions.service';
 
 @Component({
@@ -9,7 +9,8 @@ import { FleetPositionsService } from './services/fleet-positions.service';
 })
 export class AppComponent {
 
-  positions: FleetPosition = this.fleetPosition.getPositions();
+  players: Player[] = this.fleetPosition.getPlayers() ?? [];
+  positions: FleetPosition = this.players[0]?.positions ?? [];
 
   constructor(
     private fleetPosition: FleetPositionsService,
@@ -17,8 +18,8 @@ export class AppComponent {
 
   get showPort() {
     return [
-      ...this.positions.horizontal,
-      ...this.positions.vertical,
+      ...this.positions?.horizontal ?? [],
+      ...this.positions?.vertical ?? [],
     ].length !== 8
   }
 }
