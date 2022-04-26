@@ -1,5 +1,8 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { FleetPosition } from 'src/app/models';
+
+import { FleetPosition } from '../../models';
+import { FleetPositionsService } from '../../services';
+import { attack } from '../../utils';
 
 const defaultPostion = {
   vertical: [],
@@ -24,7 +27,9 @@ export class BattleGridComponent implements OnInit {
     return this._positions;
   }
 
-  constructor() { }
+  constructor(
+    private fleetService: FleetPositionsService,
+  ) { }
 
   set positions(pos: FleetPosition|null) {
     this._positions = pos || JSON.parse(
@@ -58,7 +63,7 @@ export class BattleGridComponent implements OnInit {
   }
 
   attack(el: number[]) {
-    
+    console.log(attack(this._positions, el));
   }
 
   ngOnInit(): void {

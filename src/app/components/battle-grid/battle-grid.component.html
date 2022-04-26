@@ -1,7 +1,7 @@
 <div class="battle-grid">
-    <div class="battle-grid-row" *ngFor="let battleGrid of battleGrids">
-        <div *ngFor="let col of battleGrid">
-            <bf-ship (onAttack)="attack($event)" [isShip]="col"></bf-ship>
+    <div class="battle-grid-row" *ngFor="let battleGrid of battleGrids; let outerIndex = index;">
+        <div *ngFor="let col of battleGrid; let innerIndex = index;">
+            <bf-ship (click)="attack([outerIndex, innerIndex])" [isShip]="col"></bf-ship>
         </div>
     </div>
 </div>
