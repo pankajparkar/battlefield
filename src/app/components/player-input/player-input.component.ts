@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Player } from 'src/app/models';
 
-import { ApiService, FleetPositionsService } from '../../services';
+import { FleetPositionsService } from '../../services';
 
 @Component({
   selector: 'bf-player-input',
@@ -9,20 +9,21 @@ import { ApiService, FleetPositionsService } from '../../services';
   styleUrls: ['./player-input.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PlayerInputComponent implements OnInit {
+export class PlayerInputComponent {
 
-  players: Player[] = this.apiService.getPlayers() ?? [];
+  @Input() players: Player[] = [];
+  @Output() playersChanged = new EventEmitter<Player[]>();
 
   constructor(
-    private apiService: ApiService,
     private fleetPosition: FleetPositionsService,
+    private cd: ChangeDetectorRef,
   ) { }
 
   submit() {
-    this.fleetPosition.updatePlayers(this.players);
+    this.playersChanged.emit(this.players);
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
     if (!this.players.length) {
       this.players = [
         this.fleetPosition.getPlayer(),

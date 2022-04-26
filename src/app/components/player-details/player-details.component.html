@@ -1,3 +1,7 @@
 <div>
-    <bf-player-input *ngIf="!players.length"></bf-player-input>
+    <bf-player-input 
+        *ngIf="!players.length"
+        [players]="players"
+        (playersChanged)="onPlayerChanged($event)">
+    </bf-player-input>
 </div>

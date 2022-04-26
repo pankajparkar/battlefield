@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
+
 import { FleetPosition, Player } from '../models';
 import { ApiService } from './api.service';
 
@@ -17,23 +19,15 @@ const positions: FleetPosition = {
   ],
 };
 
-const players: Player[] = [
-  {
-    id: '123',
-    player: 'Pankaj',
-    positions,
-  },
-  {
-    id: '123',
-    player: 'Pankaj',
-    positions,
-  }
-];
-
 @Injectable({
   providedIn: 'root'
 })
 export class FleetPositionsService {
+
+  private players$ = new BehaviorSubject<Player[]>(
+    this.apiService.getPlayers() ?? []
+  );
+  playersObservable = this.players$.asObservable();
 
   constructor(
     private apiService: ApiService
@@ -62,11 +56,9 @@ export class FleetPositionsService {
     }
   }
 
-  getPlayers() {
-    return this.apiService.getPlayers();
-  }
-
   updatePlayers(players: Player[]) {
+    // TODO: make it reactive
     this.apiService.updatePlayers(players);
+    this.players$.next(players);
   }
 }

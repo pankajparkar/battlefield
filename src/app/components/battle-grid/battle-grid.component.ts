@@ -1,6 +1,11 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { FleetPosition } from 'src/app/models';
 
+const defaultPostion = {
+  vertical: [],
+  horizontal: []
+};
+
 @Component({
   selector: 'bf-battle-grid',
   templateUrl: './battle-grid.component.html',
@@ -11,10 +16,9 @@ export class BattleGridComponent implements OnInit {
 
   battleGrids = this.generateGrid(10);
 
-  private _positions: FleetPosition = {
-    vertical: [],
-    horizontal: []
-  };
+  private _positions: FleetPosition = JSON.parse(
+    JSON.stringify(defaultPostion)
+  );
 
   @Input() get positions() {
     return this._positions;
@@ -22,8 +26,10 @@ export class BattleGridComponent implements OnInit {
 
   constructor() { }
 
-  set positions(pos: FleetPosition) {
-    this._positions = pos;
+  set positions(pos: FleetPosition|null) {
+    this._positions = pos || JSON.parse(
+      JSON.stringify(defaultPostion)
+    );
     this.battleGrids = this.generateGrid(10);
   }
 

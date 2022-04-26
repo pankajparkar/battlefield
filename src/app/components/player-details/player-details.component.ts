@@ -1,20 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+
 import { Player } from '../../models';
-import { ApiService } from '../../services';
+import { FleetPositionsService } from '../../services';
 
 @Component({
   selector: 'bf-player-details',
   templateUrl: './player-details.component.html',
-  styleUrls: ['./player-details.component.scss']
+  styleUrls: ['./player-details.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PlayerDetailsComponent implements OnInit {
 
-  players: Player[] = this.apiService.getPlayers();
+  @Input() players: Player[] = [];
 
   constructor(
-    private apiService: ApiService,
+    private fleetPosition: FleetPositionsService,
   ) { }
 
-  ngOnInit(): void { }
+  onPlayerChanged(players: Player[]) {
+    this.fleetPosition.updatePlayers(players);
+  }
+
+  ngOnInit(): void {
+  }
 
 }
