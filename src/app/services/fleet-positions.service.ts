@@ -32,8 +32,6 @@ export class FleetPositionsService {
   constructor(
     private apiService: ApiService
   ) { 
-    // TODO: remove this after adding manipulation logic
-    // this.apiService.updatePlayers(players)
   }
 
   uuid() {
@@ -60,5 +58,16 @@ export class FleetPositionsService {
     // TODO: make it reactive
     this.apiService.updatePlayers(players);
     this.players$.next(players);
+  }
+
+  // TODO: random position logic is pending
+  // Also handle the player name part in this case
+  randomPositions() {
+    const players = [
+      this.getPlayer(),
+      this.getPlayer(),
+    ];
+    this.players$.next(players);
+    this.apiService.updatePlayers(players);
   }
 }
