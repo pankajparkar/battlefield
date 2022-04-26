@@ -67,6 +67,7 @@ export class FleetPositionsService {
       this.getPlayer(),
       this.getPlayer(),
     ];
+    // TODO: make it reactive
     this.players$.next(players);
     this.apiService.updatePlayers(players);
   }
