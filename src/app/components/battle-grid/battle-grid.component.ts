@@ -63,7 +63,7 @@ export class BattleGridComponent implements OnInit {
   }
 
   attack(el: number[]) {
-    console.log(attack(this._positions, el));
+    this.fleetService.attack(this._positions, el));
   }
 
   ngOnInit(): void {
