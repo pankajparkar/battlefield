@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Entity } from '../enums';
+import { AttackState, Entity } from '../enums';
 import { FleetPosition, Player } from '../models';
+import { attack } from '../utils';
 import { StorageService } from './storage.service';
 
 @Injectable({
@@ -13,7 +14,15 @@ export class ApiService {
   ) { }
 
   getPlayers() {
-    return this.storage.get<Player[]>(Entity.PLAYERS);
+    const players = this.storage.get<Player[]>(Entity.PLAYERS);
+    if (players instanceof Array) {
+      // TODO: may need to remove below logic if code is moved to dummy API
+      players.map(player => {
+        player.attack = new Map<string, AttackState>();
+        return attack;
+      });
+    }
+    return players;
   }
 
   updatePlayer(player: Player): void {
@@ -22,7 +31,7 @@ export class ApiService {
     // Update player
     if (playerIndex > -1) {
       players[playerIndex] = player;
-    } 
+    }
     // Add player
     else {
       players[players.length] = player;

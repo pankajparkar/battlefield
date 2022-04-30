@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { combineLatest, map, Observable } from 'rxjs';
 
 import { Player } from './models';
 import { FleetPositionsService } from './services/fleet-positions.service';
@@ -13,10 +13,14 @@ export class AppComponent {
 
   players$: Observable<Player[]> = this.fleetPosition.playersObservable;
   winner$ = this.fleetPosition.checkWinner$;
-  positions$ = this.players$.pipe(
+  currentPlayer$ = this.fleetPosition.currentPlayer$;
+  positions$ = combineLatest([
+    this.players$,
+    this.currentPlayer$,
+  ]).pipe(
     map(
-      players => players.length > 0 ?
-        players[0].positions :
+      ([players, currentPlayer]) => players.length > 0 ?
+        currentPlayer.positions :
         null
     ),
   );

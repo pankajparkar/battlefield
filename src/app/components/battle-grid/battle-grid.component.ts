@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { map } from 'rxjs';
+import { combineLatest, map } from 'rxjs';
 import { AttackState } from 'src/app/enums';
 
 import { FleetPosition } from '../../models';
@@ -20,13 +20,20 @@ const defaultPostion = {
 export class BattleGridComponent implements OnInit {
 
   battleGrids = this.generateGrid(10);
-  attack$ = this.fleetService.playersObservable.pipe(
-    map(players => {
-      // if (!players[0].attack) {
-      //   players[0].attack = new Map<string, AttackState>();
-      // }
-      return players[0].attack;
-    })
+  /*
+    positions$ = combineLatest([
+      this.players$,
+      this.currentPlayer$,
+    ]).pipe(
+      map(
+        ([players, currentPlayer]) => players.length > 0 ?
+          currentPlayer.positions :
+          null
+      ),
+    );
+  */
+  attack$ = this.fleetService.currentPlayer$.pipe(
+    map(currentPlayer => currentPlayer.attack)
   );
 
   private _positions: FleetPosition = JSON.parse(

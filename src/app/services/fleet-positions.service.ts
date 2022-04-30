@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, combineLatest, map, Subject, tap } from 'rxjs';
+import { BehaviorSubject, combineLatest, delay, map, Subject, switchMap, tap, timer } from 'rxjs';
 import { AttackState } from '../enums';
 
 import { FleetPosition, Player } from '../models';
@@ -26,19 +26,29 @@ const positions: FleetPosition = {
 })
 export class FleetPositionsService {
 
+  // TODO: segregate things from here,
+  // some streams are unrelated here
   private players$ = new BehaviorSubject<Player[]>(
     this.apiService.getPlayers() ?? []
   );
-  private attack$ = new Subject<void>();
+  private action$ = new BehaviorSubject<number>(0);
   playersObservable = this.players$.asObservable().pipe(
     tap((players) => this.apiService.updatePlayers(players))
   );
   attackObservable = new Subject<void>();
   checkWinner$ = combineLatest([
-    this.attack$.asObservable(),
+    this.action$.asObservable(),
     this.playersObservable,
   ]).pipe(
     map(([, players]) => findWinner(players))
+  );
+
+  currentPlayer$ = combineLatest([
+    this.action$.asObservable(),
+    this.playersObservable,
+  ]).pipe(
+    delay(2000),
+    map(([actionCount, players]) => players[actionCount % 2])
   );
 
   constructor(
@@ -59,9 +69,10 @@ export class FleetPositionsService {
 
   attack(positions: FleetPosition, el: number[]) {
     const attackStatus = attack(positions, el);
-    const player = this.players$.getValue()[0];
+    // TODO: Improve this logic of attack player 
+    const player = this.players$.getValue()[this.action$.getValue() % 2];
     player.attack?.set(el.toString(), attackStatus);
-    this.attack$.next();
+    this.action$.next(this.action$.getValue() + 1);
   }
 
   getPlayer() {
