@@ -12,16 +12,17 @@ import { FleetPositionsService } from './services/fleet-positions.service';
 export class AppComponent {
 
   players$: Observable<Player[]> = this.fleetPosition.playersObservable;
+  winner$ = this.fleetPosition.checkWinner$;
   positions$ = this.players$.pipe(
     map(
       players => players.length > 0 ?
-        players[0].positions:
+        players[0].positions :
         null
     ),
   );
   showPort$ = this.positions$.pipe(
     map(positions => ([
-      ...(positions?.horizontal?? []),
+      ...(positions?.horizontal ?? []),
       ...(positions?.vertical ?? []),
     ].length !== 8))
   )

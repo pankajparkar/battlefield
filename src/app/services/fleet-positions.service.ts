@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, map, Observable, tap } from 'rxjs';
+import { BehaviorSubject, combineLatest, map, Subject, tap } from 'rxjs';
 import { AttackState } from '../enums';
 
 import { FleetPosition, Player } from '../models';
@@ -29,17 +29,21 @@ export class FleetPositionsService {
   private players$ = new BehaviorSubject<Player[]>(
     this.apiService.getPlayers() ?? []
   );
+  private attack$ = new Subject<void>();
   playersObservable = this.players$.asObservable().pipe(
     tap((players) => this.apiService.updatePlayers(players))
   );
-  checkWinner$: Observable<Player | undefined> = this.playersObservable.pipe(
-    map(players => findWinner(players)),
+  attackObservable = new Subject<void>();
+  checkWinner$ = combineLatest([
+    this.attack$.asObservable(),
+    this.playersObservable,
+  ]).pipe(
+    map(([, players]) => findWinner(players))
   );
 
   constructor(
     private apiService: ApiService
-  ) {
-  }
+  ) { }
 
   uuid() {
     let result, i, j;
@@ -56,7 +60,8 @@ export class FleetPositionsService {
   attack(positions: FleetPosition, el: number[]) {
     const attackStatus = attack(positions, el);
     const player = this.players$.getValue()[0];
-    player.attack?.set(el.toString(), attackStatus)
+    player.attack?.set(el.toString(), attackStatus);
+    this.attack$.next();
   }
 
   getPlayer() {

@@ -1,6 +1,8 @@
 import { AttackState } from "../enums";
 import { FleetPosition, Player } from "../models";
 
+import { environment } from "src/environments/environment";
+
 // TODO: cleanup existing points 
 // This can be used for enhancements
 function isSurroundingWater(pos: number[][], searchPoint: number[]): boolean {
@@ -39,7 +41,7 @@ export function findWinner(players: Player[]) {
     const winnerPlayer = players.find(player => {
         const filteredAttack = Array.from(player.attack.values())
             .filter((v: AttackState) => AttackState.Ship === v);
-        return filteredAttack.length === 10;
+        return filteredAttack.length === environment.winner;
     });
     return winnerPlayer;
 }

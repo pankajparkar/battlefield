@@ -1,5 +1,6 @@
 <div class="battle-field">
     <bf-navbar></bf-navbar>
+    {{ ( winner$ | async ) | json }}
     <ng-container *ngIf="(players$ | async) as players">
         <div class="content" [ngClass]="{ 'disable-overlay': !players.length }">
             <bf-cargo-port *ngIf="showPort$ | async"></bf-cargo-port>
