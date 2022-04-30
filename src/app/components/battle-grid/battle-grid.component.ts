@@ -1,4 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { map } from 'rxjs';
+import { AttackState } from 'src/app/enums';
 
 import { FleetPosition } from '../../models';
 import { FleetPositionsService } from '../../services';
@@ -18,6 +20,14 @@ const defaultPostion = {
 export class BattleGridComponent implements OnInit {
 
   battleGrids = this.generateGrid(10);
+  attack$ = this.fleetService.playersObservable.pipe(
+    map(players => {
+      // if (!players[0].attack) {
+      //   players[0].attack = new Map<string, AttackState>();
+      // }
+      return players[0].attack;
+    })
+  );
 
   private _positions: FleetPosition = JSON.parse(
     JSON.stringify(defaultPostion)
@@ -31,7 +41,7 @@ export class BattleGridComponent implements OnInit {
     private fleetService: FleetPositionsService,
   ) { }
 
-  set positions(pos: FleetPosition|null) {
+  set positions(pos: FleetPosition | null) {
     this._positions = pos || JSON.parse(
       JSON.stringify(defaultPostion)
     );
@@ -50,7 +60,7 @@ export class BattleGridComponent implements OnInit {
       ...(this.positions?.horizontal ?? []).flat(1) || [],
       ...(this.positions?.vertical ?? []).flat(1) || []
     ];
-    return array.map((_, index) => 
+    return array.map((_, index) =>
       positions.some(position => {
         return position.toString() === [rowIndex, index].toString();
       })
@@ -59,11 +69,11 @@ export class BattleGridComponent implements OnInit {
 
   generateGrid(num: number) {
     const array = this.generateEmptyArray(num);
-    return array.map((_, index)=> this.generateArray(num, index));
+    return array.map((_, index) => this.generateArray(num, index));
   }
 
   attack(el: number[]) {
-    this.fleetService.attack(this._positions, el));
+    this.fleetService.attack(this._positions, el);
   }
 
   ngOnInit(): void {

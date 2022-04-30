@@ -5,5 +5,5 @@ export interface Player {
     id: string;
     player: string;
     positions: FleetPosition;
-    attack?: Map<number[], AttackState>,
+    attack: Map<string, AttackState>,
 }
