@@ -19,22 +19,9 @@ const defaultPostion = {
 })
 export class BattleGridComponent implements OnInit {
 
+  @Input() attack!: Map<string, AttackState>;
+
   battleGrids = this.generateGrid(10);
-  /*
-    positions$ = combineLatest([
-      this.players$,
-      this.currentPlayer$,
-    ]).pipe(
-      map(
-        ([players, currentPlayer]) => players.length > 0 ?
-          currentPlayer.positions :
-          null
-      ),
-    );
-  */
-  attack$ = this.fleetService.currentPlayer$.pipe(
-    map(currentPlayer => currentPlayer.attack)
-  );
 
   private _positions: FleetPosition = JSON.parse(
     JSON.stringify(defaultPostion)
@@ -79,7 +66,7 @@ export class BattleGridComponent implements OnInit {
     return array.map((_, index) => this.generateArray(num, index));
   }
 
-  attack(el: number[]) {
+  hit(el: number[]) {
     this.fleetService.attack(this._positions, el);
   }
 

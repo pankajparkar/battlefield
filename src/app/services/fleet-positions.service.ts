@@ -5,6 +5,7 @@ import { AttackState } from '../enums';
 import { FleetPosition, Player } from '../models';
 import { attack, findWinner } from '../utils';
 import { ApiService } from './api.service';
+import { UuidService } from './uuid.service';
 
 const positions: FleetPosition = {
   horizontal: [
@@ -47,25 +48,13 @@ export class FleetPositionsService {
     this.action$.asObservable(),
     this.playersObservable,
   ]).pipe(
-    delay(2000),
     map(([actionCount, players]) => players[actionCount % 2])
   );
 
   constructor(
-    private apiService: ApiService
+    private apiService: ApiService,
+    private uuid: UuidService,
   ) { }
-
-  uuid() {
-    let result, i, j;
-    result = '';
-    for (let j = 0; j < 32; j++) {
-      if (j == 8 || j == 12 || j == 16 || j == 20)
-        result = result + '-';
-      i = Math.floor(Math.random() * 16).toString(16).toUpperCase();
-      result = result + i;
-    }
-    return result;
-  }
 
   attack(positions: FleetPosition, el: number[]) {
     const attackStatus = attack(positions, el);
@@ -77,7 +66,7 @@ export class FleetPositionsService {
 
   getPlayer() {
     return {
-      id: this.uuid(),
+      id: this.uuid.generate(),
       player: '',
       positions,
       attack: new Map<string, AttackState>(),

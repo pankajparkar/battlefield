@@ -1,11 +1,23 @@
 <div class="battle-field">
     <bf-navbar></bf-navbar>
     {{ ( winner$ | async ) | json }}
-    {{ (currentPlayer$ | async)?.player }}
     <ng-container *ngIf="(players$ | async) as players">
         <div class="content" [ngClass]="{ 'disable-overlay': !players.length }">
             <bf-cargo-port *ngIf="showPort$ | async"></bf-cargo-port>
-            <bf-battle-grid [positions]="positions$ | async"></bf-battle-grid>
+            <div class="playground" *ngIf="currentPlayer$ | async as currentPlayer">
+                <mat-card
+                    class="playground-field"
+                    *ngFor="let player of players"
+                    [ngClass]="{ overlay: player.id !== currentPlayer.id }">
+                    <mat-card-title>
+                        {{ player.player || 'No Name'}}
+                    </mat-card-title>
+                    <bf-battle-grid
+                        [attack]="player.attack"
+                        [positions]="player.positions">
+                    </bf-battle-grid>
+                </mat-card>
+            </div>
         </div>
         <bf-player-details [players]="players"></bf-player-details>
     </ng-container>

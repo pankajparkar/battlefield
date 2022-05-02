@@ -1,13 +1,11 @@
 <div class="battle-grid">
     <div class="battle-grid-row" *ngFor="let battleGrid of battleGrids; let outerIndex = index;">
         <div *ngFor="let col of battleGrid; let innerIndex = index;">
-            <ng-container *ngIf="attack$ | async as currentAttack">
-                <bf-ship
-                    [attackStatus]="currentAttack.get([outerIndex, innerIndex].toString())"
-                    (click)="attack([outerIndex, innerIndex])"
-                    [isShip]="col">
-                </bf-ship>
-            </ng-container>
+            <bf-ship
+                [attackStatus]="attack.get([outerIndex, innerIndex].toString())"
+                (click)="hit([outerIndex, innerIndex])"
+                [isShip]="col">
+            </bf-ship>
         </div>
     </div>
 </div>

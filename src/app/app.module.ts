@@ -19,6 +19,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 
 // TODO: move mat modules to specific subm modules
 
@@ -27,6 +28,7 @@ const matModules = [
   MatToolbarModule,
   MatInputModule,
   MatButtonModule,
+  MatCardModule,
 ];
 
 @NgModule({
