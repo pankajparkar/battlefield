@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, combineLatest, delay, map, Subject, switchMap, tap, timer } from 'rxjs';
-import { AttackState } from '../enums';
+import { BehaviorSubject, combineLatest, delay, filter, map, Subject, switchMap, tap, timer } from 'rxjs';
+import { AttackState, Sound } from '../enums';
 
 import { FleetPosition, Player } from '../models';
 import { attack, findWinner } from '../utils';
 import { ApiService } from './api.service';
+import { AudioService } from './audio.service';
 import { UuidService } from './uuid.service';
 
 const positions: FleetPosition = {
@@ -41,7 +42,8 @@ export class FleetPositionsService {
     this.action$.asObservable(),
     this.playersObservable,
   ]).pipe(
-    map(([, players]) => findWinner(players))
+    filter(([, players]) => findWinner(players)),
+    tap(i => this.audio.play(Sound.Win))
   );
 
   currentPlayer$ = combineLatest([
@@ -54,14 +56,16 @@ export class FleetPositionsService {
   constructor(
     private apiService: ApiService,
     private uuid: UuidService,
+    private audio: AudioService,
   ) { }
 
-  attack(positions: FleetPosition, el: number[]) {
+  attack(positions: FleetPosition, el: number[]): AttackState {
     const attackStatus = attack(positions, el);
     // TODO: Improve this logic of attack player 
     const player = this.players$.getValue()[this.action$.getValue() % 2];
     player.attack?.set(el.toString(), attackStatus);
     this.action$.next(this.action$.getValue() + 1);
+    return attackStatus;
   }
 
   getPlayer() {

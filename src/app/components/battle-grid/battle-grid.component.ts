@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { combineLatest, map } from 'rxjs';
-import { AttackState } from 'src/app/enums';
+import { AttackState, Sound } from 'src/app/enums';
 
 import { FleetPosition } from '../../models';
-import { FleetPositionsService } from '../../services';
+import { FleetPositionsService, AudioService } from '../../services';
 import { attack } from '../../utils';
 
 const defaultPostion = {
@@ -33,6 +33,7 @@ export class BattleGridComponent implements OnInit {
 
   constructor(
     private fleetService: FleetPositionsService,
+    private audio: AudioService,
   ) { }
 
   set positions(pos: FleetPosition | null) {
@@ -67,7 +68,13 @@ export class BattleGridComponent implements OnInit {
   }
 
   hit(el: number[]) {
-    this.fleetService.attack(this._positions, el);
+    const attackStatus = this.fleetService.attack(this._positions, el);
+    if (attackStatus === AttackState.Ship) {
+      this.audio.play(Sound.Wounded);
+    }
+    if ([AttackState.SurroundingWater, AttackState.Water].includes(attackStatus)) {
+      this.audio.play(Sound.Missed);
+    }
   }
 
   ngOnInit(): void {
