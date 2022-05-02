@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Configuration } from 'src/app/models';
 import { FleetPositionsService } from 'src/app/services';
 
 @Component({
@@ -10,9 +11,15 @@ export class ConfigurationsComponent implements OnInit {
 
   sound = false;
 
+  @Input() configuration!: Configuration;
+
   constructor(
     private fleetPositions: FleetPositionsService,
   ) { }
+
+  updateConfiguration() {
+    this.fleetPositions.updateConfiguration(this.configuration);
+  }
 
   reset() {
     this.fleetPositions.updatePlayers([]);

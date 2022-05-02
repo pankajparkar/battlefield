@@ -21,6 +21,7 @@ export class PlayerInputComponent {
 
   submit() {
     this.playersChanged.emit(this.players);
+    this.fleetPosition.resetConfiguration(this.players);
   }
 
   ngOnInit() {
@@ -31,5 +32,4 @@ export class PlayerInputComponent {
       ];
     }
   }
-
 }

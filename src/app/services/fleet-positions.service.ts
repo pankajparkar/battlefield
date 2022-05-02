@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, combineLatest, delay, filter, map, Subject, switchMap, tap, timer } from 'rxjs';
 import { AttackState, Sound } from '../enums';
 
-import { FleetPosition, Player } from '../models';
+import { Configuration, FleetPosition, Player } from '../models';
 import { attack, findWinner } from '../utils';
 import { ApiService } from './api.service';
 import { AudioService } from './audio.service';
@@ -77,8 +77,33 @@ export class FleetPositionsService {
     }
   }
 
+  getConfiguration(playerId: string) {
+    const configuration = this.apiService.getConfiguration(playerId);
+    return configuration!;
+  }
+
+  updateConfiguration(updatedConfiguration: Configuration): void {
+    const configurations = this.apiService.getConfigurations();
+    const configurationIndex = configurations.findIndex(
+      config => config.playerId === updatedConfiguration.playerId
+    );
+    configurations[configurationIndex] = updatedConfiguration;
+    this.apiService.updateConfigurations(configurations);
+  }
+
   updatePlayers(players: Player[]) {
     this.players$.next(players);
+  }
+
+  resetConfiguration(players: Player[]) {
+    let configurations = this.apiService.getConfigurations();
+    if (!configurations.length) {
+      configurations = players.map(player => ({
+        playerId: player.id,
+        sound: true,
+      }));
+      this.apiService.updateConfigurations(configurations);
+    }
   }
 
   // TODO: random position logic is pending
@@ -88,6 +113,7 @@ export class FleetPositionsService {
       this.getPlayer(),
       this.getPlayer(),
     ];
+    this.resetConfiguration(players);
     this.players$.next(players);
   }
 }

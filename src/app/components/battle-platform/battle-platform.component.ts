@@ -38,4 +38,8 @@ export class BattlePlatformComponent {
     return player.id !== currentPlayer.id
   }
 
+  getConfiguration(id: string) {
+    return this.fleetPosition.getConfiguration(id);
+  }
+
 }

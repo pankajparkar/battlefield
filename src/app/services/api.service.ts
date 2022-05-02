@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AttackState, Entity } from '../enums';
-import { FleetPosition, Player } from '../models';
+import { Configuration, FleetPosition, Player } from '../models';
 import { attack } from '../utils';
 import { StorageService } from './storage.service';
 
@@ -45,6 +45,24 @@ export class ApiService {
 
   clearPlayer() {
     this.storage.set(Entity.PLAYERS, "[]");
+  }
+
+  getConfigurations(): Configuration[] {
+    const configurations = this.storage.get<Configuration[]>(Entity.Configurations) ?? [];
+    return configurations;
+  }
+
+  getConfiguration(playerId: string): Configuration {
+    const configuration = this.getConfigurations().find(configuration => configuration.playerId === playerId)!;
+    return configuration;
+  }
+
+  updateConfigurations(configurations: Configuration[]) {
+    this.storage.set(Entity.Configurations, configurations);
+  }
+
+  clearConfigurations() {
+    this.storage.set(Entity.Configurations, "[]");
   }
 
   getPositions(playerId: string) {

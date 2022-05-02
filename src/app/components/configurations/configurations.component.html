@@ -1,4 +1,4 @@
-<mat-checkbox [(ngModel)]="sound">
+<mat-checkbox [(ngModel)]="configuration!.sound" (ngModelChange)="updateConfiguration()" >
     Sounds
 </mat-checkbox>
 
