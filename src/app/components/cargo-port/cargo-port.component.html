@@ -1,16 +1,18 @@
 <div class="cargo-port-platform">
     <div class="vertical-ships">
         <div class="ship" *ngFor="let ship of verticalShips">
-            <div class="ship-block" *ngFor="let box of getArray(ship.size)">
-                {{ship.id}} {{ ship.size }}
-            </div>
+            <bf-ship
+                [isShip]="true" 
+                *ngFor="let box of getArray(ship.size)">
+            </bf-ship>
         </div>
     </div>
     <div class="horizontal-ships">
         <div class="ship" *ngFor="let ship of horizontalShips">
-            <div class="ship-block" *ngFor="let box of getArray(ship.size)">
-                {{ship.id}} {{ ship.size }}
-            </div>
+            <bf-ship
+                [isShip]="true" 
+                *ngFor="let box of getArray(ship.size)">
+            </bf-ship>
         </div>
     </div>
 </div>
