@@ -35,4 +35,7 @@ export class AppComponent {
     private fleetPosition: FleetPositionsService,
   ) { }
 
+  isCurrentPlayer(player: Player, currentPlayer: Player) {
+    return player.id !== currentPlayer.id
+  }
 }
