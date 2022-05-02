@@ -1,27 +1,4 @@
 <div class="battle-field">
     <bf-navbar></bf-navbar>
-    {{ ( winner$ | async ) | json }}
-    <ng-container *ngIf="(players$ | async) as players">
-        <div class="content">
-            <bf-cargo-port *ngIf="showPort$ | async"></bf-cargo-port>
-            <div class="playground" *ngIf="currentPlayer$ | async as currentPlayer">
-                <mat-card
-                    class="playground-field"
-                    *ngFor="let player of players"
-                    [ngClass]="{ 
-                        overlay: isCurrentPlayer(player, currentPlayer),
-                        'mat-elevation-z9': !isCurrentPlayer(player, currentPlayer)
-                    }">
-                    <mat-card-title>
-                        {{ player.player || 'No Name'}}
-                    </mat-card-title>
-                    <bf-battle-grid
-                        [attack]="player.attack"
-                        [positions]="player.positions">
-                    </bf-battle-grid>
-                </mat-card>
-            </div>
-        </div>
-        <bf-player-details [players]="players"></bf-player-details>
-    </ng-container>
+    <bf-battle-platform></bf-battle-platform>
 </div>

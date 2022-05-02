@@ -1,0 +1,21 @@
+bf-cargo-port {
+    width: 200px;
+}
+
+.playground {
+    display: flex;
+    padding: 10px;
+
+    .playground-field {
+        margin: 16px;
+    }
+
+    .overlay {
+        opacity: .2;
+        cursor: not-allowed;
+
+        bf-battle-grid {
+            pointer-events: none;
+        }
+    }
+}
