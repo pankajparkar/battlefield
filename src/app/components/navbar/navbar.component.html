@@ -1,6 +1,12 @@
 <mat-toolbar>
   <span>Battle Field</span>
 
+  &nbsp;
+  &nbsp;
+  <mat-checkbox [(ngModel)]="sound">
+    Sounds
+  </mat-checkbox>
+
   <button mat-button (click)="reset()">
     Reset
   </button>

@@ -9,6 +9,8 @@ import { FleetPositionsService } from 'src/app/services';
 })
 export class NavbarComponent implements OnInit {
 
+  sound = false;
+
   constructor(
     private fleetPositions: FleetPositionsService,
   ) { }
