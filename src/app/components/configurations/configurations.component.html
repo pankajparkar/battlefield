@@ -1,1 +1,11 @@
-<p>configurations works!</p>
+<mat-checkbox [(ngModel)]="sound">
+    Sounds
+</mat-checkbox>
+
+<button mat-button (click)="reset()">
+    Reset
+</button>
+
+<button mat-button (click)="random()">
+    Random
+</button>

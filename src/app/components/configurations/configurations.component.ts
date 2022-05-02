@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FleetPositionsService } from 'src/app/services';
 
 @Component({
   selector: 'bf-configurations',
@@ -7,7 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ConfigurationsComponent implements OnInit {
 
-  constructor() { }
+  sound = false;
+
+  constructor(
+    private fleetPositions: FleetPositionsService,
+  ) { }
+
+  reset() {
+    this.fleetPositions.updatePlayers([]);
+  }
+  random() {
+    this.fleetPositions.randomPositions();
+  }
 
   ngOnInit(): void {
   }
