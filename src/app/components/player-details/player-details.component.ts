@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 
 import { Player } from '../../models';
 import { FleetPositionsService } from '../../services';
@@ -15,13 +16,21 @@ export class PlayerDetailsComponent implements OnInit {
 
   constructor(
     private fleetPosition: FleetPositionsService,
+    private dialogRef: MatDialogRef<PlayerDetailsComponent>,
   ) { }
 
-  onPlayerChanged(players: Player[]) {
-    this.fleetPosition.updatePlayers(players);
+  submit() {
+    this.fleetPosition.updatePlayers(this.players);
+    this.fleetPosition.resetConfiguration(this.players);
+    this.dialogRef.close();
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    if (!this.players.length) {
+      this.players = [
+        this.fleetPosition.getPlayer(),
+        this.fleetPosition.getPlayer(),
+      ];
+    }
   }
-
 }

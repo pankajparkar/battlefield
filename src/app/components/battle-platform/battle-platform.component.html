@@ -1,7 +1,7 @@
 {{ ( winner$ | async ) | json }}
 <ng-container *ngIf="(players$ | async) as players">
     <div class="content">
-        <bf-cargo-port *ngIf="showPort$ | async"></bf-cargo-port>
+        <bf-cargo-port *ngIf="(showPort$ | async)"></bf-cargo-port>
         <div class="playground" *ngIf="currentPlayer$ | async as currentPlayer">
             <mat-card
                 class="playground-field"
@@ -23,5 +23,4 @@
             </mat-card>
         </div>
     </div>
-    <bf-player-details [players]="players"></bf-player-details>
 </ng-container>

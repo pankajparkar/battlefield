@@ -12,8 +12,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { CurrentPlayerComponent } from './components/current-player/current-player.component';
 import { PlayerDetailsComponent } from './components/player-details/player-details.component';
-import { PlayerInputComponent } from './components/player-input/player-input.component';
 import { BattlePlatformComponent } from './components/battle-platform/battle-platform.component';
+import { ConfigurationsComponent } from './components/configurations/configurations.component';
 
 // mat modules
 import { MatMenuModule } from '@angular/material/menu';
@@ -22,7 +22,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { ConfigurationsComponent } from './components/configurations/configurations.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 // TODO: move mat modules to specific subm modules
 
@@ -33,6 +34,8 @@ const matModules = [
   MatButtonModule,
   MatCardModule,
   MatCheckboxModule,
+  MatDialogModule,
+  MatSnackBarModule,
 ];
 
 @NgModule({
@@ -44,7 +47,6 @@ const matModules = [
     CargoPortComponent,
     CurrentPlayerComponent,
     PlayerDetailsComponent,
-    PlayerInputComponent,
     BattlePlatformComponent,
     ConfigurationsComponent
   ],

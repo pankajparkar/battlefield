@@ -1,7 +1,20 @@
-<div>
-    <bf-player-input 
-        *ngIf="!players.length"
-        [players]="players"
-        (playersChanged)="onPlayerChanged($event)">
-    </bf-player-input>
-</div>
+<h1 mat-dialog-title>Enter Player Details</h1>
+<form name="playerDetails" ngForm #playerDetails="ngForm" (ngSubmit)="submit()" *ngIf="players.length">
+    <div mat-dialog-content>
+            <mat-form-field appearance="fill">
+                <mat-label>Player 1</mat-label>
+                <input matInput name="player1" placeholder="Enter Player 1 name" [(ngModel)]="players[0].player" required=""
+                    minlength="4" />
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Player 2</mat-label>
+                <input matInput name="player2" placeholder="Enter Player 2 name" [(ngModel)]="players[1].player" required=""
+                    minlength="4" />
+            </mat-form-field>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button cdkFocusInitial type="button" [disabled]="playerDetails.invalid" (click)="playerDetails.ngSubmit.emit()">
+            Save
+        </button>
+    </div>
+</form>
