@@ -2,7 +2,7 @@
     <div class="vertical-ships">
         <div class="ship" *ngFor="let ship of verticalShips">
             <bf-ship
-                [isShip]="true" 
+                [isShipBlock]="true" 
                 *ngFor="let box of getArray(ship.size)">
             </bf-ship>
         </div>
@@ -10,7 +10,7 @@
     <div class="horizontal-ships">
         <div class="ship" *ngFor="let ship of horizontalShips">
             <bf-ship
-                [isShip]="true" 
+                [isShipBlock]="true" 
                 *ngFor="let box of getArray(ship.size)">
             </bf-ship>
         </div>

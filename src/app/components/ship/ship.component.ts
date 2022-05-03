@@ -9,9 +9,12 @@ import { AttackState } from 'src/app/enums';
 })
 export class ShipComponent implements OnInit {
 
-  @HostBinding('class.is-ship')
-  @Input() isShip = false;
+  @HostBinding('class.is-ship-block')
+  @Input() isShipBlock = false;
+  @HostBinding('class.is-play-mode')
+  @Input() isPlayMode = false;
   @Input() attackStatus: AttackState | undefined;
+  @Input() ship: AttackState | undefined;
 
   @Output() onAttack = new EventEmitter<number[]>();
 

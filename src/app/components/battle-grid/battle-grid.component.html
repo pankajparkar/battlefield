@@ -4,7 +4,8 @@
             <bf-ship
                 [attackStatus]="attack.get([outerIndex, innerIndex].toString())"
                 (click)="hit([outerIndex, innerIndex])"
-                [isShip]="col">
+                [isPlayMode]="true"
+                [isShipBlock]="col">
             </bf-ship>
         </div>
     </div>

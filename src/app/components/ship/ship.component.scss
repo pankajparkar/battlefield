@@ -9,9 +9,13 @@
     opacity: .1;
     width: 50px;
     
-    &.is-ship {
+    .is-ship-block {
         border: 1px solid blue;
         opacity: 1;
+    }
+
+    &.is-play-mode {
+
         &.attacked {
             border: 1px solid red;
             background: 
@@ -28,15 +32,16 @@
                     #f50000 50%, 
                     rgba(0, 0, 0, 0) calc(50% + 0.8px), 
                     rgba(0, 0, 0, 0) 100%);
+            opacity: 1;
             pointer-events: none;
         }
-    }
 
-    &.attack-missed{
-        background: #b0b0b0;
-        &::before {
-            content: '●';
-            pointer-events: none;
+        &.attack-missed{
+            background: #b0b0b0;
+            &::before {
+                content: '●';
+                pointer-events: none;
+            }
         }
     }
 }
