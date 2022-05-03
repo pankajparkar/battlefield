@@ -44,7 +44,7 @@ export class BattlePlatformComponent {
         this.audio.play(Sound.GameStarted);
         this.snackbar.open('Game Started Successfully.');
       }
-      return of(false);
+      return false;
     })
   )
 
