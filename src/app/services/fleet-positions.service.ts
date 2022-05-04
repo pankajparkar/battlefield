@@ -60,11 +60,13 @@ export class FleetPositionsService {
   ) { }
 
   attack(positions: FleetPosition, el: number[]): AttackState {
-    const player = this.players$.getValue()[this.action$.getValue() % 2];
+    const players = this.players$.getValue();
+    const player = players[this.action$.getValue() % 2];
     const attackStatus = attack(positions, el, player.attack);
     // TODO: Improve this logic of attack player 
-    player.attack?.set(el.toString(), attackStatus);
+    player.attack[el.toString()] = attackStatus;
     this.action$.next(this.action$.getValue() + 1);
+    this.updatePlayers(players);
     return attackStatus;
   }
 
@@ -73,7 +75,7 @@ export class FleetPositionsService {
       id: this.uuid.generate(),
       player: '',
       positions,
-      attack: new Map<string, AttackState>(),
+      attack: {},
     }
   }
 

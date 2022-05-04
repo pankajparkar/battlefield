@@ -37,7 +37,7 @@ function findAttackState(pos: number[][], attackPoint: number[]) {
     }
 }
 
-function findMatchedShipFleet(positions: FleetPosition, attackPoint: number[], attack: Map<string, AttackState>) {
+function findMatchedShipFleet(positions: FleetPosition, attackPoint: number[], attack: { [key: string]: AttackState }) {
     const pos = [
         ...positions.horizontal,
         ...positions.vertical,
@@ -45,14 +45,14 @@ function findMatchedShipFleet(positions: FleetPosition, attackPoint: number[], a
     return pos.find(p => p.some(i => i.toString() === attackPoint.toString()))
 }
 
-function isKilled(matchedFleet: number[][], attackPoint: number[], attack: Map<string, AttackState>) {
+function isKilled(matchedFleet: number[][], attackPoint: number[], attack: { [key: string]: AttackState }) {
     return matchedFleet
         .filter(s => s.toString() !== attackPoint.toString())
-        .every(s => attack.get(s.toString()) === AttackState.Wounded)
+        .every(s => attack[s.toString()] === AttackState.Wounded)
 }
 
 // TODO: make things more functional in attack
-export function attack(positions: FleetPosition, attackPoint: number[], attack: Map<string, AttackState>) {
+export function attack(positions: FleetPosition, attackPoint: number[], attack: { [key: string]: AttackState }) {
     const matchedFleet = findMatchedShipFleet(positions, attackPoint, attack);
     if (matchedFleet && isKilled(matchedFleet ?? [], attackPoint, attack)) {
         return AttackState.Killed;
@@ -66,7 +66,7 @@ export function attack(positions: FleetPosition, attackPoint: number[], attack: 
 
 export function findWinner(players: Player[]): boolean {
     const winnerPlayer = players.some(player => {
-        const filteredAttack = Array.from(player.attack.values())
+        const filteredAttack = Object.values(player.attack)
             .filter((v: AttackState) => AttackState.Wounded === v);
         return filteredAttack.length === environment.winner;
     });

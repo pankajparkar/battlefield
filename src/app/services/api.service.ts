@@ -15,13 +15,6 @@ export class ApiService {
 
   getPlayers() {
     const players = this.storage.get<Player[]>(Entity.PLAYERS);
-    if (players instanceof Array) {
-      // TODO: may need to remove below logic if code is moved to dummy API
-      players.map(player => {
-        player.attack = new Map<string, AttackState>();
-        return attack;
-      });
-    }
     return players;
   }
 

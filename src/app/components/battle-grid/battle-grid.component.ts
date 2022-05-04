@@ -17,7 +17,7 @@ const defaultPostion = {
 })
 export class BattleGridComponent implements OnInit {
 
-  @Input() attack!: Map<string, AttackState>;
+  @Input() attack!: { [key: string]: AttackState };
 
   battleGrids = this.generateGrid(10);
 
