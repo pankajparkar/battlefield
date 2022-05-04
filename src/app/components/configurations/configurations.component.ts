@@ -22,7 +22,7 @@ export class ConfigurationsComponent implements OnInit {
   }
 
   reset() {
-    this.fleetPositions.updatePlayers([]);
+    this.fleetPositions.resetPositions(this.configuration.playerId);
   }
   random() {
     this.fleetPositions.randomPositions();

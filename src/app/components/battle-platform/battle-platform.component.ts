@@ -27,14 +27,21 @@ export class BattlePlatformComponent {
         null
     ),
   );
-  showPort$ = this.positions$.pipe(
-    withLatestFrom(this.players$),
-    switchMap(async ([positions, players]) => {
-      const shouldShowPort = ([
-        ...(positions?.horizontal ?? []),
-        ...(positions?.vertical ?? []),
-      ].length !== 8);
-      if (shouldShowPort) {
+  showPort$ = this.players$.pipe(
+    switchMap(async (players) => {
+      const playersFiltered = players.filter(({ positions: { horizontal, vertical } }) => {
+        return [
+          ...(horizontal ?? []),
+          ...(vertical ?? []),
+        ].length === 8;
+      });
+      if (playersFiltered.length === 2) {
+        return false;
+      }
+      if (playersFiltered.length === 1) {
+        return true;
+      }
+      if (!playersFiltered.length) {
         const dialogRef = this.dialog.open(PlayerDetailsComponent, {
           disableClose: true,
         });

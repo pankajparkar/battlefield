@@ -1,26 +1,35 @@
 {{ ( winner$ | async ) | json }}
 <ng-container *ngIf="(players$ | async) as players">
     <div class="content">
-        <bf-cargo-port *ngIf="(showPort$ | async)"></bf-cargo-port>
-        <div class="playground" *ngIf="currentPlayer$ | async as currentPlayer">
-            <mat-card
-                class="playground-field"
-                *ngFor="let player of players"
-                [ngClass]="{ 
-                    overlay: isCurrentPlayer(player, currentPlayer),
-                    'mat-elevation-z9': !isCurrentPlayer(player, currentPlayer)
-                }">
-                <mat-card-title>
-                    {{ player.player || 'No Name'}}
-                </mat-card-title>
-                <bf-battle-grid
-                    [attack]="player.attack"
-                    [positions]="player.positions">
-                </bf-battle-grid>
-                <bf-configurations
-                    [configuration]="getConfiguration(player.id)"
-                ></bf-configurations>
-            </mat-card>
-        </div>
+        <ng-container *ngIf="(showPort$ | async) as showPort; else test">
+            {{ showPort }}
+            <bf-cargo-port *ngIf="!showPort"></bf-cargo-port>
+            <!-- <bf-battle-grid
+                [attack]="player.attack"
+                [positions]="player.positions">
+            </bf-battle-grid> -->
+        </ng-container>
+        <ng-template #test>
+            <div class="playground" *ngIf="currentPlayer$ | async as currentPlayer">
+                <mat-card
+                    class="playground-field"
+                    *ngFor="let player of players"
+                    [ngClass]="{ 
+                        overlay: isCurrentPlayer(player, currentPlayer),
+                        'mat-elevation-z9': !isCurrentPlayer(player, currentPlayer)
+                    }">
+                    <mat-card-title>
+                        {{ player.player || 'No Name'}}
+                    </mat-card-title>
+                    <bf-battle-grid
+                        [attack]="player.attack"
+                        [positions]="player.positions">
+                    </bf-battle-grid>
+                    <bf-configurations
+                        [configuration]="getConfiguration(player.id)"
+                    ></bf-configurations>
+                </mat-card>
+            </div>
+        </ng-template>
     </div>
 </ng-container>

@@ -108,6 +108,22 @@ export class FleetPositionsService {
     }
   }
 
+  resetPositions(playerId: string) {
+    const players = this.players$.getValue();
+    const playerIndex = players.findIndex(p => p.id === playerId)!;
+    const currentPlayer = players[playerIndex];
+    players[playerIndex] = {
+      ...this.getPlayer(),
+      id: currentPlayer.id,
+      player: currentPlayer.player,
+      positions: {
+        vertical: [],
+        horizontal: []
+      }
+    };
+    this.updatePlayers(players);
+  }
+
   // TODO: random position logic is pending
   // Also handle the player name part in this case
   randomPositions() {
