@@ -60,9 +60,9 @@ export class FleetPositionsService {
   ) { }
 
   attack(positions: FleetPosition, el: number[]): AttackState {
-    const attackStatus = attack(positions, el);
-    // TODO: Improve this logic of attack player 
     const player = this.players$.getValue()[this.action$.getValue() % 2];
+    const attackStatus = attack(positions, el, player.attack);
+    // TODO: Improve this logic of attack player 
     player.attack?.set(el.toString(), attackStatus);
     this.action$.next(this.action$.getValue() + 1);
     return attackStatus;

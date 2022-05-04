@@ -35,7 +35,7 @@ export class ShipComponent {
 
   @HostBinding('class.attacked')
   get isAttacked() {
-    return this.attackStatus === AttackState.Wounded;
+    return [AttackState.Wounded, AttackState.Killed].includes(this.attackStatus!);
   }
 
   @HostBinding('class.attack-missed')
