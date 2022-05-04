@@ -1,5 +1,7 @@
 export enum AttackState {
-    Ship,
+    Wounded,
+    Killed,
     SurroundingWater,
     Water,
+    Missed,
 }

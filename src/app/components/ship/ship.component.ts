@@ -13,12 +13,6 @@ export class ShipComponent {
   firstShipBlock = false;
   lastShipBlock = false;
 
-  @HostBinding('class.is-ship-block')
-  @Input() get isShipBlock() {
-    return (this._shipBlocks ?? []).some(ship => ship.toString() === this.currentShipBlock?.toString());
-  };
-  @HostBinding('class.is-play-mode')
-  @Input() isPlayMode = false;
   @Input() attackStatus: AttackState | undefined;
   @Input() currentShipBlock: number[] = [];
 
@@ -31,12 +25,17 @@ export class ShipComponent {
     this.firstShipBlock = this.compareBlocks(0);
     this.lastShipBlock = this.compareBlocks(blocks.length - 1);
   };
+  @HostBinding('class.is-play-mode')
+  @Input() isPlayMode = false;
 
-  @Output() onAttack = new EventEmitter<number[]>();
+  @HostBinding('class.is-ship-block')
+  get isShipBlock() {
+    return (this._shipBlocks ?? []).some(ship => ship.toString() === this.currentShipBlock?.toString());
+  };
 
   @HostBinding('class.attacked')
   get isAttacked() {
-    return this.attackStatus === AttackState.Ship;
+    return this.attackStatus === AttackState.Wounded;
   }
 
   @HostBinding('class.attack-missed')

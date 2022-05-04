@@ -28,25 +28,28 @@ function isHit(pos: number[][], searchPoint: number[]) {
     return pos.some(pos => pos.toString() === searchPoint.toString());
 }
 
+function findAttackState(pos: number[][], attackPoint: number[]) {
+    if (isHit(pos, attackPoint)) {
+        return AttackState.Wounded;
+    } else if (true) {
+        return AttackState.Missed;
+    } else {
+        return AttackState.Water;
+    }
+}
+
 export function attack(positions: FleetPosition, attackPoint: number[]) {
     const pos = [
         ...(positions.horizontal).flat(1),
         ...(positions.vertical).flat(1)
     ];
-    if (isHit(pos, attackPoint)) {
-        return AttackState.Ship;
-    } else if (isSurroundingWater(pos, attackPoint)) {
-        return AttackState.SurroundingWater;
-    }
-    else {
-        return AttackState.Water;
-    }
+    return findAttackState(pos, attackPoint);
 }
 
 export function findWinner(players: Player[]): boolean {
     const winnerPlayer = players.some(player => {
         const filteredAttack = Array.from(player.attack.values())
-            .filter((v: AttackState) => AttackState.Ship === v);
+            .filter((v: AttackState) => AttackState.Wounded === v);
         return filteredAttack.length === environment.winner;
     });
     return winnerPlayer;

@@ -1,10 +1,8 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { combineLatest, map } from 'rxjs';
 import { AttackState, Sound } from 'src/app/enums';
 
 import { FleetPosition } from '../../models';
 import { FleetPositionsService, AudioService } from '../../services';
-import { attack } from '../../utils';
 
 const defaultPostion = {
   vertical: [],
@@ -51,15 +49,7 @@ export class BattleGridComponent implements OnInit {
 
   generateArray(num: number, rowIndex: number) {
     const array = this.generateEmptyArray(num);
-    const positions = [
-      ...(this.positions?.horizontal ?? []).flat(1) || [],
-      ...(this.positions?.vertical ?? []).flat(1) || []
-    ];
-    return array.map((_, index) =>
-      positions.some(position => {
-        return position.toString() === [rowIndex, index].toString();
-      })
-    );
+    return array;
   }
 
   generateGrid(num: number) {
@@ -69,11 +59,15 @@ export class BattleGridComponent implements OnInit {
 
   hit(el: number[]) {
     const attackStatus = this.fleetService.attack(this._positions, el);
-    if (attackStatus === AttackState.Ship) {
+    // TODO: improve below logic
+    if (attackStatus === AttackState.Wounded) {
       this.audio.play(Sound.Wounded);
     }
-    if ([AttackState.SurroundingWater, AttackState.Water].includes(attackStatus)) {
+    if (AttackState.Missed === attackStatus) {
       this.audio.play(Sound.Missed);
+    }
+    if (AttackState.Killed === attackStatus) {
+      this.audio.play(Sound.Killed);
     }
   }
 
