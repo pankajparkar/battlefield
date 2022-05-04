@@ -7,14 +7,30 @@ import { AttackState } from 'src/app/enums';
   styleUrls: ['./ship.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ShipComponent implements OnInit {
+export class ShipComponent {
+
+  private _shipBlocks: number[][] = [];
+  firstShipBlock = false;
+  lastShipBlock = false;
 
   @HostBinding('class.is-ship-block')
-  @Input() isShipBlock = false;
+  @Input() get isShipBlock() {
+    return (this._shipBlocks ?? []).some(ship => ship.toString() === this.currentShipBlock?.toString());
+  };
   @HostBinding('class.is-play-mode')
   @Input() isPlayMode = false;
   @Input() attackStatus: AttackState | undefined;
-  @Input() ship: AttackState | undefined;
+  @Input() currentShipBlock: number[] = [];
+
+  @Input()
+  get shipBlocks() {
+    return this._shipBlocks;
+  }
+  set shipBlocks(blocks: number[][]) {
+    this._shipBlocks = blocks;
+    this.firstShipBlock = this.compareBlocks(0);
+    this.lastShipBlock = this.compareBlocks(blocks.length - 1);
+  };
 
   @Output() onAttack = new EventEmitter<number[]>();
 
@@ -30,7 +46,8 @@ export class ShipComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
+  compareBlocks(index: number) {
+    return this._shipBlocks?.length > 0 && this._shipBlocks[index]?.toString() === this.currentShipBlock?.toString();
   }
 
 }

@@ -1,35 +1,29 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
+const vertical = [
+  [[0, 1], [0, 2], [0, 3], [0, 4]],
+  [[1, 1], [1, 2], [1, 3]],
+  [[2, 1], [3, 2]],
+  [[3, 0]],
+];
+const horizontal = [
+  [[5, 1], [6, 1], [7, 1], [8, 1]],
+  [[6, 1], [6, 2], [6, 3]],
+  [[7, 1], [7, 2]],
+  [[8, 1]],
+];
+
 @Component({
   selector: 'bf-cargo-port',
   templateUrl: './cargo-port.component.html',
   styleUrls: ['./cargo-port.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CargoPortComponent implements OnInit {
+export class CargoPortComponent {
 
-  verticalShips = [
-    {id: 1, size: 4 },
-    {id: 2, size: 3 },
-    {id: 3, size: 2 },
-    {id: 4, size: 1 },
-  ];
-
-  horizontalShips = [
-    {id: 5, size: 4 },
-    {id: 6, size: 3 },
-    {id: 7, size: 2 },
-    {id: 8, size: 1 },
-  ];
+  verticalShips = vertical;
+  horizontalShips = horizontal;
 
   constructor() { }
-
-  getArray(size: number) {
-    const array = new Array(size);
-    return array;
-  }
-
-  ngOnInit(): void {
-  }
 
 }
