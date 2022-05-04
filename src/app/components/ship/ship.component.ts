@@ -40,7 +40,7 @@ export class ShipComponent {
 
   @HostBinding('class.attack-missed')
   get isAttackMissed() {
-    return [AttackState.Water, AttackState.SurroundingWater].includes(this.attackStatus!);
+    return AttackState.Missed === this.attackStatus;
   }
 
   constructor() { }

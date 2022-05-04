@@ -28,13 +28,12 @@ function isHit(pos: number[][], searchPoint: number[]) {
     return pos.some(pos => pos.toString() === searchPoint.toString());
 }
 
+// TODO: find other attacks
 function findAttackState(pos: number[][], attackPoint: number[]) {
     if (isHit(pos, attackPoint)) {
         return AttackState.Wounded;
     } else if (true) {
         return AttackState.Missed;
-    } else {
-        return AttackState.Water;
     }
 }
 
