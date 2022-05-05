@@ -9,7 +9,7 @@
     opacity: .1;
     width: 50px;
     
-    .is-ship-block {
+    &.is-ship-block {
         border: 1px solid blue;
         opacity: 1;
     }

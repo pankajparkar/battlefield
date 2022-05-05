@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, combineLatest, delay, filter, map, Subject, switchMap, tap, timer } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { BehaviorSubject, combineLatest, delay, filter, lastValueFrom, map, Subject, switchMap, tap, timer } from 'rxjs';
+import { PlayerDetailsComponent } from '../components/player-details/player-details.component';
 import { AttackState, Sound } from '../enums';
 
 import { Configuration, FleetPosition, Player } from '../models';
@@ -28,6 +31,9 @@ const positions: FleetPosition = {
 })
 export class FleetPositionsService {
 
+  // TODO: change below name
+  attackObservable = new Subject<void>();
+
   // TODO: segregate things from here,
   // some streams are unrelated here
   private players$ = new BehaviorSubject<Player[]>(
@@ -35,15 +41,42 @@ export class FleetPositionsService {
   );
   private action$ = new BehaviorSubject<number>(0);
   playersObservable = this.players$.asObservable().pipe(
-    tap((players) => this.apiService.updatePlayers(players))
+    tap((players) => this.apiService.updatePlayers(players)),
+    switchMap(async (players) => {
+      const playersFiltered = players.filter(({ positions: { horizontal, vertical } }) => {
+        return [
+          ...(horizontal ?? []),
+          ...(vertical ?? []),
+        ].length === 8;
+      });
+      if (!playersFiltered.length) {
+        const dialogRef = this.dialog.open(PlayerDetailsComponent, {
+          disableClose: true,
+        });
+        const { componentInstance } = dialogRef
+        componentInstance.players = players;
+        await lastValueFrom(dialogRef.afterClosed());
+        this.audio.play(Sound.GameStarted);
+        this.snackbar.open('Game Started Successfully.');
+      }
+      return players;
+    })
   );
-  attackObservable = new Subject<void>();
   checkWinner$ = combineLatest([
     this.action$.asObservable(),
     this.playersObservable,
   ]).pipe(
     filter(([, players]) => findWinner(players)),
     tap(i => this.audio.play(Sound.Win))
+  );
+
+  playerToReset$ = this.playersObservable.pipe(
+    map(
+      (players) => players.find(player => [
+        ...player.positions.horizontal,
+        ...player.positions.vertical,
+      ].length !== 8)
+    )
   );
 
   currentPlayer$ = combineLatest([
@@ -57,6 +90,8 @@ export class FleetPositionsService {
     private apiService: ApiService,
     private uuid: UuidService,
     private audio: AudioService,
+    private dialog: MatDialog,
+    private snackbar: MatSnackBar,
   ) { }
 
   attack(positions: FleetPosition, el: number[]): AttackState {
@@ -118,7 +153,7 @@ export class FleetPositionsService {
       player: currentPlayer.player,
       positions: {
         vertical: [],
-        horizontal: []
+        horizontal: [],
       }
     };
     this.updatePlayers(players);

@@ -12,6 +12,7 @@ export class ShipComponent {
   private _shipBlocks: number[][] = [];
   firstShipBlock = false;
   lastShipBlock = false;
+  isHorizontal = false;
 
   @Input() attackStatus: AttackState | undefined;
   @Input() currentShipBlock: number[] = [];
@@ -22,9 +23,13 @@ export class ShipComponent {
   }
   set shipBlocks(blocks: number[][]) {
     this._shipBlocks = blocks;
-    this.firstShipBlock = this.compareBlocks(0);
-    this.lastShipBlock = this.compareBlocks(blocks.length - 1);
+    if (blocks.length > 1) {
+      this.firstShipBlock = this.compareBlocks(0);
+      this.lastShipBlock = this.compareBlocks(blocks.length - 1);
+      this.isHorizontal = blocks[0][0] < blocks[1][0];
+    }
   };
+
   @HostBinding('class.is-play-mode')
   @Input() isPlayMode = false;
 
