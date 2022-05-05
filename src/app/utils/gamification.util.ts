@@ -24,13 +24,13 @@ function isSurroundingWater(pos: number[][], searchPoint: number[]): boolean {
     return allSurroundingPositions.some(pos => pos.toString() === searchPoint.toString());
 }
 
-function isHit(pos: number[][], searchPoint: number[]) {
+function isShot(pos: number[][], searchPoint: number[]) {
     return pos.some(pos => pos.toString() === searchPoint.toString());
 }
 
 // TODO: find other attacks
 function findAttackState(pos: number[][], attackPoint: number[]) {
-    if (isHit(pos, attackPoint)) {
+    if (isShot(pos, attackPoint)) {
         return AttackState.Wounded;
     } else if (true) {
         return AttackState.Missed;

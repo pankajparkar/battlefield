@@ -4,7 +4,7 @@ import { Player } from 'src/app/models';
 import { FleetPositionsService } from 'src/app/services';
 
 @Component({
-  selector: 'bf-battle-platform',
+  selector: 'bs-battle-platform',
   templateUrl: './battle-platform.component.html',
   styleUrls: ['./battle-platform.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

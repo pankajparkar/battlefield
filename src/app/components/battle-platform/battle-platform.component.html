@@ -1,11 +1,11 @@
 <ng-container *ngIf="(players$ | async) as players">
-    <div *ngIf="(playerToReset$ | async) as playerToReset; else grid" class="player-to-reset">
+    <div *ngIf="(playerToReset$ | async) as playerToReset; else grid" class="player-to-reset" cdkDropListGroup>
         <h3>{{ playerToReset.player }}</h3>
-        <bf-cargo-port></bf-cargo-port>
-        <bf-battle-grid
+        <bs-cargo-port></bs-cargo-port>
+        <bs-battle-grid
             [attack]="playerToReset.attack"
             [positions]="playerToReset.positions">
-        </bf-battle-grid>
+        </bs-battle-grid>
     </div>
     <ng-template #grid>
         <div class="playground" *ngIf="currentPlayer$ | async as currentPlayer">
@@ -19,13 +19,13 @@
                 <mat-card-title>
                     {{ player.player || 'No Name'}}
                 </mat-card-title>
-                <bf-battle-grid
+                <bs-battle-grid
                     [attack]="player.attack"
                     [positions]="player.positions">
-                </bf-battle-grid>
-                <bf-configurations
+                </bs-battle-grid>
+                <bs-configurations
                     [configuration]="getConfiguration(player.id)"
-                ></bf-configurations>
+                ></bs-configurations>
             </mat-card>
         </div>
     </ng-template>

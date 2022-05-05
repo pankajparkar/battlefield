@@ -3,7 +3,7 @@ import { Configuration } from 'src/app/models';
 import { FleetPositionsService } from 'src/app/services';
 
 @Component({
-  selector: 'bf-configurations',
+  selector: 'bs-configurations',
   templateUrl: './configurations.component.html',
   styleUrls: ['./configurations.component.scss']
 })

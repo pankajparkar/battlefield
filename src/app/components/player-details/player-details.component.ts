@@ -5,7 +5,7 @@ import { Player } from '../../models';
 import { FleetPositionsService } from '../../services';
 
 @Component({
-  selector: 'bf-player-details',
+  selector: 'bs-player-details',
   templateUrl: './player-details.component.html',
   styleUrls: ['./player-details.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

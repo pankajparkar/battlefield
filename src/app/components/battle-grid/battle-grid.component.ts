@@ -10,7 +10,7 @@ const defaultPostion = {
 };
 
 @Component({
-  selector: 'bf-battle-grid',
+  selector: 'bs-battle-grid',
   templateUrl: './battle-grid.component.html',
   styleUrls: ['./battle-grid.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

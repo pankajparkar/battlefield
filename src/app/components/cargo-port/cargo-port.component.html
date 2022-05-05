@@ -1,20 +1,22 @@
 <div class="cargo-port-platform">
     <div class="vertical-ships">
         <div class="ship" *ngFor="let shipBlocks of horizontalShips">
-            <bf-ship
+            <bs-ship
+                cdkDrag
                 *ngFor="let shipBlock of shipBlocks"
                 [currentShipBlock]="shipBlock"
                 [shipBlocks]="shipBlocks">
-            </bf-ship>
+            </bs-ship>
         </div>
     </div>
     <div class="horizontal-ships">
         <div class="ship" *ngFor="let shipBlocks of verticalShips">
-            <bf-ship
+            <bs-ship
+                cdkDrag
                 *ngFor="let shipBlock of shipBlocks"
                 [currentShipBlock]="shipBlock"
                 [shipBlocks]="shipBlocks">
-            </bf-ship>
+            </bs-ship>
         </div>
     </div>
 </div>

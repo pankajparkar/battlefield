@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, HostBinding, Input, O
 import { AttackState } from 'src/app/enums';
 
 @Component({
-  selector: 'bf-ship',
+  selector: 'bs-ship',
   templateUrl: './ship.component.html',
   styleUrls: ['./ship.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
