@@ -3,10 +3,17 @@
         <div class="ship" *ngFor="let shipBlocks of horizontalShips">
             <bs-ship
                 cdkDrag
-                (cdkDragStarted)="dragStarted(shipBlocks, shipBlock)"
+                (cdkDragStarted)="dragStarted($event, shipBlocks, shipBlock)"
                 *ngFor="let shipBlock of shipBlocks"
                 [currentShipBlock]="shipBlock"
                 [shipBlocks]="shipBlocks">
+                <div *cdkDragPreview>
+                    <bs-ship
+                        *ngFor="let shipBlock of shipBlocks"
+                        [currentShipBlock]="shipBlock"
+                        [shipBlocks]="shipBlocks">
+                    </bs-ship>
+                </div>
             </bs-ship>
         </div>
     </div>
@@ -14,9 +21,17 @@
         <div class="ship" *ngFor="let shipBlocks of verticalShips">
             <bs-ship
                 cdkDrag
+                (cdkDragStarted)="dragStarted($event, shipBlocks, shipBlock)"
                 *ngFor="let shipBlock of shipBlocks"
                 [currentShipBlock]="shipBlock"
                 [shipBlocks]="shipBlocks">
+                <div *cdkDragPreview>
+                    <bs-ship
+                        *ngFor="let shipBlock of shipBlocks"
+                        [currentShipBlock]="shipBlock"
+                        [shipBlocks]="shipBlocks">
+                    </bs-ship>
+                </div>
             </bs-ship>
         </div>
     </div>

@@ -26,8 +26,9 @@ export class CargoPortComponent {
 
   constructor() { }
 
-  dragStarted(e: any, b: any) {
-    console.log(e, b)
+  dragStarted(a: any, e: any, b: any) {
+    console.log(a, e, b);
+
   }
 
 }
