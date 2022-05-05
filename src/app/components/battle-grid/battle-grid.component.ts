@@ -57,8 +57,8 @@ export class BattleGridComponent implements OnInit {
     return array.map((_, index) => this.generateArray(num, index));
   }
 
-  hit(el: number[]) {
-    const attackStatus = this.fleetService.attack(this._positions, el);
+  shot(el: number[]) {
+    const attackStatus = this.fleetService.shot(this._positions, el);
     // TODO: improve below logic
     if (attackStatus === AttackState.Wounded) {
       this.audio.play(Sound.Wounded);

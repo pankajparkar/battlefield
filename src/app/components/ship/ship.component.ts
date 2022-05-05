@@ -38,6 +38,13 @@ export class ShipComponent {
     return (this._shipBlocks ?? []).some(ship => ship.toString() === this.currentShipBlock?.toString());
   };
 
+  @HostBinding('click')
+  onClick() {
+    if (this.isPlayMode) {
+      this.onShot.emit(this.currentShipBlock);
+    }
+  }
+
   @HostBinding('class.attacked')
   get isAttacked() {
     return [AttackState.Wounded, AttackState.Killed].includes(this.attackStatus!);
@@ -47,6 +54,7 @@ export class ShipComponent {
   get isAttackMissed() {
     return AttackState.Missed === this.attackStatus;
   }
+  @Output() onShot = new EventEmitter();
 
   constructor() { }
 

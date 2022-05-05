@@ -23,6 +23,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 
 // TODO: move mat modules to specific subm modules
@@ -36,6 +37,7 @@ const matModules = [
   MatCheckboxModule,
   MatDialogModule,
   MatSnackBarModule,
+  DragDropModule,
 ];
 
 @NgModule({

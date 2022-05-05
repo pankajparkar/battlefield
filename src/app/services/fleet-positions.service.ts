@@ -94,7 +94,7 @@ export class FleetPositionsService {
     private snackbar: MatSnackBar,
   ) { }
 
-  attack(positions: FleetPosition, el: number[]): AttackState {
+  shot(positions: FleetPosition, el: number[]): AttackState {
     const players = this.players$.getValue();
     const player = players[this.action$.getValue() % 2];
     const attackStatus = attack(positions, el, player.attack);
