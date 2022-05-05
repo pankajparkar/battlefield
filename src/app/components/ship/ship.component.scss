@@ -45,3 +45,7 @@
         }
     }
 }
+
+::ng-deep .horizontal-ships-preview {
+    display: flex;
+}
