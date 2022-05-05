@@ -1,7 +1,8 @@
-<div class="battle-grid">
+<div class="battle-grid" cdkDropList cdkDropListSortingDisabled>
     <div class="battle-grid-row" *ngFor="let battleGrid of battleGrids; let outerIndex = index;">
         <div *ngFor="let col of battleGrid; let innerIndex = index;">
             <bs-ship
+                cdkDrag
                 [attackStatus]="attack[outerIndex + ',' + innerIndex]"
                 [shipBlocks]="[]"
                 [currentShipBlock]="[outerIndex, innerIndex]"

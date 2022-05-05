@@ -1,15 +1,16 @@
 <div class="cargo-port-platform">
-    <div class="vertical-ships">
+    <div class="vertical-ships" cdkDropList cdkDropListSortingDisabled>
         <div class="ship" *ngFor="let shipBlocks of horizontalShips">
             <bs-ship
                 cdkDrag
+                (cdkDragStarted)="dragStarted(shipBlocks, shipBlock)"
                 *ngFor="let shipBlock of shipBlocks"
                 [currentShipBlock]="shipBlock"
                 [shipBlocks]="shipBlocks">
             </bs-ship>
         </div>
     </div>
-    <div class="horizontal-ships">
+    <div class="horizontal-ships" cdkDropList cdkDropListSortingDisabled>
         <div class="ship" *ngFor="let shipBlocks of verticalShips">
             <bs-ship
                 cdkDrag
