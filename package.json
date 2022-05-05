@@ -1,5 +1,5 @@
 {
-  "name": "battlefield",
+  "name": "battleship",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -7,10 +7,10 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "build-prod": "ng build --c=production --base-href /battlefield/",
-    "deploy": "gh-pages -d dist/battlefield",
+    "build-prod": "ng build --c=production --base-href /battleship/",
+    "deploy": "gh-pages -d dist/battleship",
     "build-deploy": "npm run build-prod && npm run copy-index && npm run deploy",
-    "copy-index": "cp dist/battlefield/index.html dist/battlefield/404.html",
+    "copy-index": "cp dist/battleship/index.html dist/battleship/404.html",
     "gh-pages": "gh-pages"
   },
   "private": true,
