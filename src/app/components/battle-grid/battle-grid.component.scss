@@ -1,3 +1,7 @@
-.battle-grid-row {
+.battle-grid {
     display: flex;
+    .battle-grid-row {
+        display: flex;
+        flex-flow: column nowrap;
+    }
 }

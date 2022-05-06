@@ -7,7 +7,7 @@
                 (cdkDragEntered)="dragStarted($event, shipBlocks, shipBlock)"
                 *ngFor="let shipBlock of shipBlocks"
                 [currentShipBlock]="shipBlock"
-                [cdkDragData]="{shipBlocks,shipBlock,isHorizontal: true}"
+                [cdkDragData]="{shipBlocks,isHorizontal: true}"
                 [shipBlocks]="shipBlocks">
                 <div *cdkDragPreview>
                     <bs-ship
@@ -26,7 +26,7 @@
                 (cdkDragStarted)="dragStarted($event, shipBlocks, shipBlock)"
                 (cdkDragEntered)="dragStarted($event, shipBlocks, shipBlock)"
                 *ngFor="let shipBlock of shipBlocks"
-                [cdkDragData]="{shipBlocks,shipBlock,isHorizontal: false}"
+                [cdkDragData]="{shipBlocks,isHorizontal: false}"
                 [currentShipBlock]="shipBlock"
                 [shipBlocks]="shipBlocks">
                 <div class="horizontal-ships-preview" *cdkDragPreview>

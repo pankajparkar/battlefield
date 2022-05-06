@@ -22,8 +22,8 @@ export class ShipComponent {
     return this._shipBlocks;
   }
   set shipBlocks(blocks: number[][]) {
-    this._shipBlocks = blocks;
-    if (blocks.length > 1) {
+    this._shipBlocks = blocks || [];
+    if (this._shipBlocks.length > 1) {
       this.firstShipBlock = this.compareBlocks(0);
       this.lastShipBlock = this.compareBlocks(blocks.length - 1);
       this.isHorizontal = blocks[0][0] < blocks[1][0];

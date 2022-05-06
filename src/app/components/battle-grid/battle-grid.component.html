@@ -5,11 +5,11 @@
                 cdkDropList
                 cdkDropListSortingDisabled
                 [attackStatus]="attack[outerIndex + ',' + innerIndex]"
-                [shipBlocks]="[]"
+                [shipBlocks]="map.get(outerIndex + ',' + innerIndex)!"
                 [cdkDropListEnterPredicate]="canDrop"
                 (cdkDropListEntered)="dragStarted($event)"
                 (cdkDropListExited)="dragExited($event)"
-                (cdkDropListDropped)="dragDropped($event)"
+                (cdkDropListDropped)="dragDropped($event, [outerIndex, innerIndex])"
                 [currentShipBlock]="[outerIndex, innerIndex]"
                 (onShot)="onShot.emit($event)"
                 [isPlayMode]="true">

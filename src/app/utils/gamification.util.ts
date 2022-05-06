@@ -64,6 +64,11 @@ export function attack(positions: FleetPosition, attackPoint: number[], attack: 
     return findAttackState(pos, attackPoint);
 }
 
+export function generatePosition([x, y]: number[], selected: number[][]) {
+    const newPosition = selected.map(([a, b]) => [x + a, y + b]);
+    return newPosition;
+}
+
 export function findWinner(players: Player[]): boolean {
     const winnerPlayer = players.some(player => {
         const filteredAttack = Object.values(player.attack)
