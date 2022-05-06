@@ -48,7 +48,15 @@ export class BattleGridComponent implements OnInit {
   }
 
   dragStarted(a: any) {
-    console.log('currentIndex', a.currentIndex, a);
+    console.log('dragStarted', a.currentIndex, a);
+  }
+
+  dragExited(a: any) {
+    console.log('dragExited', a.currentIndex, a);
+  }
+
+  dragDropped(a: any) {
+    console.log('dragDropped', a.currentIndex, a);
   }
 
   canDrop() {

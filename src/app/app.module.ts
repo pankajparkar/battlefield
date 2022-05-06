@@ -25,6 +25,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
+import { PlayerSetupComponent } from './components/player-setup/player-setup.component';
 
 // TODO: move mat modules to specific subm modules
 
@@ -50,7 +51,8 @@ const matModules = [
     CurrentPlayerComponent,
     PlayerDetailsComponent,
     BattlePlatformComponent,
-    ConfigurationsComponent
+    ConfigurationsComponent,
+    PlayerSetupComponent
   ],
   imports: [
     ...matModules,

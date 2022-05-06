@@ -7,7 +7,9 @@
                 [attackStatus]="attack[outerIndex + ',' + innerIndex]"
                 [shipBlocks]="[]"
                 [cdkDropListEnterPredicate]="canDrop"
-                (cdkDropListDropped)="dragStarted($event)"
+                (cdkDropListEntered)="dragStarted($event)"
+                (cdkDropListExited)="dragExited($event)"
+                (cdkDropListDropped)="dragDropped($event)"
                 [currentShipBlock]="[outerIndex, innerIndex]"
                 (onShot)="onShot.emit($event)"
                 [isPlayMode]="true">
