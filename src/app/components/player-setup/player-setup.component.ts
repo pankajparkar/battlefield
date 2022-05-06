@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input } from '@angular/core';
 import { EventDragData, Player } from 'src/app/models';
 import { FleetPositionsService } from 'src/app/services';
-import { canDragAtPosition, generatePosition } from 'src/app/utils';
+import { canDragAtPosition, generatePosition, isPlayerCompletelySetup } from 'src/app/utils';
 
 @Component({
   selector: 'bs-player-setup',
@@ -13,6 +13,7 @@ export class PlayerSetupComponent {
 
   @Input() player!: Player;
   highlight: number[][] | null = null;
+  disabled = true;
 
   constructor(
     private cd: ChangeDetectorRef,
@@ -28,21 +29,23 @@ export class PlayerSetupComponent {
   }
 
   dragExited(_: EventDragData) {
-    this.highlight = null;
+    // this.highlight = null;
   }
 
   dragDropped(element: EventDragData) {
+    if (!this.highlight) {
+      return;
+    }
     const dragData = element.$event.item.data;
     const existingPosition = this.player.positions;
-    const newPosition = generatePosition(element.currentPosition!, dragData.shipBlocks)
     if (dragData.isHorizontal) {
-      existingPosition?.horizontal.push(newPosition);
+      existingPosition?.horizontal.push(this.highlight);
     } else {
-      existingPosition?.vertical.push(newPosition);
+      existingPosition?.vertical.push(this.highlight);
     }
     this.player.positions = { ...existingPosition };
     this.highlight = null;
-    // this.cd.detach();
+    this.disabled = !isPlayerCompletelySetup(this.player.positions);
     this.cd.detectChanges();
     console.log('highlightt', this.highlight)
   }

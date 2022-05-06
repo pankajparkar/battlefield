@@ -6,7 +6,7 @@ import { PlayerDetailsComponent } from '../components/player-details/player-deta
 import { AttackState, Sound } from '../enums';
 
 import { Configuration, FleetPosition, Player } from '../models';
-import { attack, findWinner } from '../utils';
+import { attack, findWinner, isPlayerCompletelySetup } from '../utils';
 import { ApiService } from './api.service';
 import { AudioService } from './audio.service';
 import { UuidService } from './uuid.service';
@@ -71,11 +71,8 @@ export class FleetPositionsService {
   );
 
   playerToReset$ = this.playersObservable.pipe(
-    map(
-      (players) => players.find(player => [
-        ...player.positions.horizontal,
-        ...player.positions.vertical,
-      ].length !== 8)
+    map((players) =>
+      players.find(player => !isPlayerCompletelySetup(player.positions))
     )
   );
 

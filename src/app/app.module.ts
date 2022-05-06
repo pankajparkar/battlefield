@@ -14,6 +14,7 @@ import { CurrentPlayerComponent } from './components/current-player/current-play
 import { PlayerDetailsComponent } from './components/player-details/player-details.component';
 import { BattlePlatformComponent } from './components/battle-platform/battle-platform.component';
 import { ConfigurationsComponent } from './components/configurations/configurations.component';
+import { PlayerSetupComponent } from './components/player-setup/player-setup.component';
 
 // mat modules
 import { MatMenuModule } from '@angular/material/menu';
@@ -23,9 +24,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
-import { PlayerSetupComponent } from './components/player-setup/player-setup.component';
 
 // TODO: move mat modules to specific subm modules
 
@@ -39,6 +40,7 @@ const matModules = [
   MatDialogModule,
   MatSnackBarModule,
   DragDropModule,
+  MatTooltipModule,
 ];
 
 @NgModule({

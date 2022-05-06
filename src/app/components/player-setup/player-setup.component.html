@@ -13,7 +13,16 @@
             [positions]="player.positions">
         </bs-battle-grid>
     </div>
-    <button type="button" mat-button (click)="save()">
-        Save
-    </button>
+    <div
+        #tooltip="matTooltip"
+        matTooltip="Info about the action"
+        matTooltipPosition="above">
+        <button
+            type="button"
+            [disabled]="disabled"
+            mat-raised-button (click)="save()">
+                Save
+        </button>
+    </div>
+
 </div>

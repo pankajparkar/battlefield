@@ -39,11 +39,19 @@ function findAttackState(pos: number[][], attackPoint: number[]) {
     }
 }
 
-function findMatchedShipFleet(positions: FleetPosition, attackPoint: number[], attack: { [key: string]: AttackState }) {
-    const pos = [
+function collatePositions(positions: FleetPosition) {
+    return [
         ...positions.horizontal,
         ...positions.vertical,
     ];
+}
+
+export function isPlayerCompletelySetup(positions: FleetPosition) {
+    return collatePositions(positions).length === 8;
+}
+
+function findMatchedShipFleet(positions: FleetPosition, attackPoint: number[], attack: { [key: string]: AttackState }) {
+    const pos = collatePositions(positions);
     return pos.find(p => p.some(i => i.toString() === attackPoint.toString()))
 }
 
