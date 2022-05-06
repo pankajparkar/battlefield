@@ -1,13 +1,13 @@
 <div class="cargo-port-platform">
     <div class="vertical-ships" cdkDropList cdkDropListSortingDisabled>
-        <div class="ship" *ngFor="let shipBlocks of horizontalShips">
+        <div class="ship" *ngFor="let shipBlocks of verticalShips">
             <bs-ship
                 cdkDrag
                 (cdkDragStarted)="dragStarted($event, shipBlocks, shipBlock)"
                 (cdkDragEntered)="dragStarted($event, shipBlocks, shipBlock)"
                 *ngFor="let shipBlock of shipBlocks"
                 [currentShipBlock]="shipBlock"
-                [cdkDragData]="{shipBlocks,shipBlock}"
+                [cdkDragData]="{shipBlocks,shipBlock,isHorizontal: true}"
                 [shipBlocks]="shipBlocks">
                 <div *cdkDragPreview>
                     <bs-ship
@@ -20,13 +20,13 @@
         </div>
     </div>
     <div class="horizontal-ships">
-        <div class="ship" *ngFor="let shipBlocks of verticalShips"  cdkDropList cdkDropListSortingDisabled>
+        <div class="ship" *ngFor="let shipBlocks of horizontalShips"  cdkDropList cdkDropListSortingDisabled>
             <bs-ship
                 cdkDrag
                 (cdkDragStarted)="dragStarted($event, shipBlocks, shipBlock)"
                 (cdkDragEntered)="dragStarted($event, shipBlocks, shipBlock)"
                 *ngFor="let shipBlock of shipBlocks"
-                [cdkDragData]="{shipBlocks,shipBlock}"
+                [cdkDragData]="{shipBlocks,shipBlock,isHorizontal: false}"
                 [currentShipBlock]="shipBlock"
                 [shipBlocks]="shipBlocks">
                 <div class="horizontal-ships-preview" *cdkDragPreview>

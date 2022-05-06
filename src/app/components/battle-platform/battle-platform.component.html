@@ -1,11 +1,6 @@
 <ng-container *ngIf="(players$ | async) as players">
     <div *ngIf="(playerToReset$ | async) as playerToReset; else grid" class="player-to-reset" cdkDropListGroup>
-        <h3>{{ playerToReset.player }}</h3>
-        <bs-cargo-port></bs-cargo-port>
-        <bs-battle-grid
-            [attack]="playerToReset.attack"
-            [positions]="playerToReset.positions">
-        </bs-battle-grid>
+        <bs-player-setup [player]="playerToReset"></bs-player-setup>
     </div>
     <ng-template #grid>
         <div class="playground" *ngIf="currentPlayer$ | async as currentPlayer">

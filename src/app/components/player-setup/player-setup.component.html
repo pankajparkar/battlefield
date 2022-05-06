@@ -1,1 +1,10 @@
-<p>player-setup works!</p>
+<div class="player-setup">
+    <h2>{{ player.player }}</h2>
+    <div class="player-setup-content">
+        <bs-cargo-port></bs-cargo-port>
+        <bs-battle-grid
+            [attack]="player.attack"
+            [positions]="player.positions">
+        </bs-battle-grid>
+    </div>
+</div>

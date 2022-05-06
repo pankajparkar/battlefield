@@ -55,8 +55,18 @@ export class BattleGridComponent implements OnInit {
     console.log('dragExited', a.currentIndex, a);
   }
 
-  dragDropped(a: any) {
-    console.log('dragDropped', a.currentIndex, a);
+  generateShipFleet(startPosition: number[],) {
+
+  }
+
+  dragDropped(element: any) {
+    const dragData = element.item.data;
+    const existingPosition = this.positions;
+    if (dragData.isHorizontal) {
+      // existingPosition?.horizontal.push(dragData.shipBlocks)
+    } else {
+
+    }
   }
 
   canDrop() {
