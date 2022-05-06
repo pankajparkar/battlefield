@@ -5,12 +5,14 @@ import { environment } from "src/environments/environment";
 
 export function findSurroundingPoints([a, b]: number[]) {
     return [
-        // [x+1,y], [x-1,y] point
-        [a + 1, b], [a + 1, b],
-        // [x,y + 1], [x, y - 1] point
-        [a + 1, b], [a + 1, b],
-        // [x + 1,y + 1], [x - 1, y - 1] point
-        [a + 1, b + 1], [a - 1, b - 1]
+        // [x + 1, y], [ x - 1, y] point side
+        [a + 1, b], [a - 1, b],
+        // [x , y + 1], [x, y - 1] point up & down
+        [a, b + 1], [a, b - 1],
+        // [x + 1, y + 1], [x - 1, y - 1] right diagonal
+        [a + 1, b + 1], [a - 1, b - 1],
+        // [x + 1, y - 1], [x - 1, y + 1] left diagonal
+        [a, b + 1], [a - 1, b + 1]
     ];
 }
 
@@ -87,9 +89,10 @@ export function canDragAtPosition(positions: FleetPosition, newPosition: number[
     if (existingPositions.length < 1 || newPosition.length < 1) {
         return true;
     }
-    const allOccupiedPositions = existingPositions.reduce((acc, [a, b]: number[]) => [
+    const allOccupiedPositions = existingPositions.reduce((acc, number: number[]) => [
         ...acc,
-        ...findSurroundingPoints([a, b]),
+        number,
+        ...findSurroundingPoints(number),
     ], <number[][]>[])
     return !newPosition.some(pos =>
         allOccupiedPositions.some(p => p.toString() === pos.toString())
