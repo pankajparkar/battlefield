@@ -54,7 +54,7 @@ export class ShipComponent {
   get isAttackMissed() {
     return AttackState.Missed === this.attackStatus;
   }
-  @Output() onShot = new EventEmitter();
+  @Output() onShot = new EventEmitter<number[]>();
 
   constructor() { }
 

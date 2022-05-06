@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { combineLatest, map, Observable } from 'rxjs';
-import { Player } from 'src/app/models';
-import { FleetPositionsService } from 'src/app/services';
+import { AttackState, Sound } from 'src/app/enums';
+import { FleetPosition, Player } from 'src/app/models';
+import { AudioService, FleetPositionsService } from 'src/app/services';
 
 @Component({
   selector: 'bs-battle-platform',
@@ -28,6 +29,7 @@ export class BattlePlatformComponent {
 
   constructor(
     private fleetPosition: FleetPositionsService,
+    private audio: AudioService,
   ) { }
 
   isCurrentPlayer(player: Player, currentPlayer: Player) {
@@ -36,6 +38,20 @@ export class BattlePlatformComponent {
 
   getConfiguration(id: string) {
     return this.fleetPosition.getConfiguration(id);
+  }
+
+  shot(el: number[], positions: FleetPosition) {
+    const attackStatus = this.fleetPosition.shot(positions, el);
+    // TODO: improve below logic
+    if (attackStatus === AttackState.Wounded) {
+      this.audio.play(Sound.Wounded);
+    }
+    if (AttackState.Missed === attackStatus) {
+      this.audio.play(Sound.Missed);
+    }
+    if (AttackState.Killed === attackStatus) {
+      this.audio.play(Sound.Killed);
+    }
   }
 
 }

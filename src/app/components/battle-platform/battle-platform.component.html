@@ -3,7 +3,6 @@
         <h3>{{ playerToReset.player }}</h3>
         <bs-cargo-port></bs-cargo-port>
         <bs-battle-grid
-            cdkDropListSortingDisabled
             [attack]="playerToReset.attack"
             [positions]="playerToReset.positions">
         </bs-battle-grid>
@@ -22,6 +21,7 @@
                 </mat-card-title>
                 <bs-battle-grid
                     [attack]="player.attack"
+                    (onShot)="shot($event, player.positions)"
                     [positions]="player.positions">
                 </bs-battle-grid>
                 <bs-configurations
