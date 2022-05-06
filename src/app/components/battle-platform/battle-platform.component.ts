@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { combineLatest, map, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { AttackState, Sound } from 'src/app/enums';
 import { FleetPosition, Player } from 'src/app/models';
 import { AudioService, FleetPositionsService } from 'src/app/services';
@@ -16,16 +16,6 @@ export class BattlePlatformComponent {
   winner$ = this.fleetPosition.checkWinner$;
   currentPlayer$ = this.fleetPosition.currentPlayer$;
   playerToReset$ = this.fleetPosition.playerToReset$;
-  positions$ = combineLatest([
-    this.players$,
-    this.currentPlayer$,
-  ]).pipe(
-    map(
-      ([players, currentPlayer]) => players.length > 0 ?
-        currentPlayer.positions :
-        null
-    ),
-  );
 
   constructor(
     private fleetPosition: FleetPositionsService,

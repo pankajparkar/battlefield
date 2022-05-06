@@ -4,12 +4,13 @@
             <bs-ship
                 cdkDropList
                 cdkDropListSortingDisabled
+                [highlight]="highlight"
                 [attackStatus]="attack[outerIndex + ',' + innerIndex]"
                 [shipBlocks]="map.get(outerIndex + ',' + innerIndex)!"
                 [cdkDropListEnterPredicate]="canDrop"
-                (cdkDropListEntered)="dragStarted($event)"
-                (cdkDropListExited)="dragExited($event)"
-                (cdkDropListDropped)="dragDropped($event, [outerIndex, innerIndex])"
+                (cdkDropListEntered)="onDragEntered.emit({ $event, currentPosition: [outerIndex, innerIndex]})"
+                (cdkDropListExited)="onDragExited.emit({$event})"
+                (cdkDropListDropped)="onDragDropped.emit({ $event, currentPosition: [outerIndex, innerIndex]})"
                 [currentShipBlock]="[outerIndex, innerIndex]"
                 (onShot)="onShot.emit($event)"
                 [isPlayMode]="true">

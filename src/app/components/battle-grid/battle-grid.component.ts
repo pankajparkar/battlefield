@@ -1,8 +1,7 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AttackState } from 'src/app/enums';
-import { generatePosition } from 'src/app/utils';
 
-import { FleetPosition } from '../../models';
+import { EventDragData, FleetPosition } from '../../models';
 
 const defaultPostion = {
   vertical: [],
@@ -19,7 +18,11 @@ export class BattleGridComponent implements OnInit {
 
   @Input() attack!: { [key: string]: AttackState };
   @Input() dropEnabled = false;
+  @Input() highlight: number[][] | null = null;
   @Output() onShot = new EventEmitter<number[]>();
+  @Output() onDragEntered = new EventEmitter<EventDragData>();
+  @Output() onDragExited = new EventEmitter<EventDragData>();
+  @Output() onDragDropped = new EventEmitter<EventDragData>();
 
   battleGrids = this.generateGrid(10);
   map = new Map<string, number[][]>();
@@ -48,9 +51,7 @@ export class BattleGridComponent implements OnInit {
     });
   }
 
-  constructor(
-    private cd: ChangeDetectorRef,
-  ) { }
+  constructor() { }
 
   generateEmptyArray(num: number): number[] {
     return new Array(num).fill(0);
@@ -59,28 +60,6 @@ export class BattleGridComponent implements OnInit {
   generateGrid(num: number) {
     return this.generateEmptyArray(num)
       .map(() => this.generateEmptyArray(num));
-  }
-
-  dragStarted(a: any) {
-    console.log('dragStarted', a.currentIndex, a);
-  }
-
-  dragExited(a: any) {
-    console.log('dragExited', a.currentIndex, a);
-  }
-
-  dragDropped(element: any, currentPoint: number[]) {
-    const dragData = element.item.data;
-    const existingPosition = this.positions;
-    const newPosition = generatePosition(currentPoint, dragData.shipBlocks)
-    if (dragData.isHorizontal) {
-      existingPosition?.horizontal.push(newPosition);
-    } else {
-      existingPosition?.vertical.push(newPosition);
-    }
-    this.positions = existingPosition;
-    this.cd.detach();
-    this.cd.detectChanges();
   }
 
   canDrop() {

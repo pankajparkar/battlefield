@@ -132,6 +132,13 @@ export class FleetPositionsService {
     this.players$.next(players);
   }
 
+  updatePlayer(player: Player) {
+    const players = this.players$.getValue();
+    const playerIndex = players.findIndex(p => p.id === player.id)!;
+    players[playerIndex] = player;
+    this.updatePlayers(players);
+  }
+
   resetConfiguration(players: Player[]) {
     let configurations = this.apiService.getConfigurations();
     if (!configurations.length) {

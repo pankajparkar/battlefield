@@ -16,6 +16,7 @@ export class ShipComponent {
 
   @Input() attackStatus: AttackState | undefined;
   @Input() currentShipBlock: number[] = [];
+  @Input() highlight: number[][] | null = null;
 
   @Input()
   get shipBlocks() {
@@ -32,6 +33,11 @@ export class ShipComponent {
 
   @HostBinding('class.is-play-mode')
   @Input() isPlayMode = false;
+
+  @HostBinding('class.highlight')
+  get isHighlight() {
+    return this.highlight?.find(h => h.toString() === this.currentShipBlock.toString());
+  }
 
   @HostBinding('class.is-ship-block')
   get isShipBlock() {

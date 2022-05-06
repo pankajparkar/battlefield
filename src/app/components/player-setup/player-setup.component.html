@@ -4,7 +4,15 @@
         <bs-cargo-port></bs-cargo-port>
         <bs-battle-grid
             [attack]="player.attack"
+            [highlight]="highlight"
+            [positions]="player.positions"
+            (onDragEntered)="dragEntered($event)"
+            (onDragExited)="dragExited($event)"
+            (onDragDropped)="dragDropped($event)"
             [positions]="player.positions">
         </bs-battle-grid>
     </div>
+    <button type="button" mat-button (click)="save()">
+        Save
+    </button>
 </div>
