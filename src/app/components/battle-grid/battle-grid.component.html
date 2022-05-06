@@ -1,10 +1,12 @@
-<div class="battle-grid" cdkDropList cdkDropListSortingDisabled>
+<div class="battle-grid">
     <div class="battle-grid-row" *ngFor="let battleGrid of battleGrids; let outerIndex = index;">
-        <div *ngFor="let col of battleGrid; let innerIndex = index;">
+        <div *ngFor="let col of battleGrid; let innerIndex = index;" cdkDragListGroup>
             <bs-ship
-                cdkDrag
+                cdkDropList
+                cdkDropListSortingDisabled
                 [attackStatus]="attack[outerIndex + ',' + innerIndex]"
                 [shipBlocks]="[]"
+                (cdkDropListDropped)="dragStarted($event)"
                 [currentShipBlock]="[outerIndex, innerIndex]"
                 (onShot)="shot($event)"
                 [isPlayMode]="true">
@@ -12,3 +14,6 @@
         </div>
     </div>
 </div>
+                <!-- cdkDrag [cdkDragData]="[outerIndex, innerIndex]" -->
+
+<!-- cdkDragBoundary=".battle-grid" cdkDropListSortingDisabled [cdkDropListDisabled]="true" -->

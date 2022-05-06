@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, HostBinding, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, HostBinding, HostListener, Input, OnInit, Output } from '@angular/core';
 import { AttackState } from 'src/app/enums';
 
 @Component({
@@ -38,7 +38,7 @@ export class ShipComponent {
     return (this._shipBlocks ?? []).some(ship => ship.toString() === this.currentShipBlock?.toString());
   };
 
-  @HostBinding('click')
+  @HostListener('click')
   onClick() {
     if (this.isPlayMode) {
       this.onShot.emit(this.currentShipBlock);

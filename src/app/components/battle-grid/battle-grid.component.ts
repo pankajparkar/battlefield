@@ -71,6 +71,10 @@ export class BattleGridComponent implements OnInit {
     }
   }
 
+  dragStarted(a: any) {
+    console.log('currentIndex', a.currentIndex, a);
+  }
+
   ngOnInit(): void {
   }
 
