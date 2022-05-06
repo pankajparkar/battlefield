@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AttackState } from 'src/app/enums';
+import { canDragAtPosition } from 'src/app/utils';
 
 import { EventDragData, FleetPosition } from '../../models';
 
@@ -7,6 +8,12 @@ const defaultPostion = {
   vertical: [],
   horizontal: [],
 };
+
+function copy(obj: any) {
+  return JSON.parse(
+    JSON.stringify(obj)
+  );
+}
 
 @Component({
   selector: 'bs-battle-grid',
@@ -62,8 +69,8 @@ export class BattleGridComponent implements OnInit {
       .map(() => this.generateEmptyArray(num));
   }
 
-  canDrop() {
-    return !this.dropEnabled;
+  canDrop = () => {
+    return this.dropEnabled && canDragAtPosition(this.positions! ?? copy(defaultPostion), this.highlight! ?? []);
   }
 
   ngOnInit(): void {

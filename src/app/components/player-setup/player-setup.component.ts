@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input } from '@angular/core';
 import { EventDragData, Player } from 'src/app/models';
 import { FleetPositionsService } from 'src/app/services';
-import { generatePosition } from 'src/app/utils';
+import { canDragAtPosition, generatePosition } from 'src/app/utils';
 
 @Component({
   selector: 'bs-player-setup',
@@ -21,8 +21,10 @@ export class PlayerSetupComponent {
 
   dragEntered(element: EventDragData) {
     const dragData = element.$event.item.data;
-    const newPosition = generatePosition(element.currentPosition!, dragData.shipBlocks)
-    this.highlight = newPosition;
+    const newPosition = generatePosition(element.currentPosition!, dragData.shipBlocks);
+    if (canDragAtPosition(this.player.positions, newPosition)) {
+      this.highlight = newPosition;
+    }
   }
 
   dragExited(_: EventDragData) {

@@ -51,16 +51,20 @@ function isKilled(matchedFleet: number[][], attackPoint: number[], attack: { [ke
         .every(s => attack[s.toString()] === AttackState.Wounded)
 }
 
+function flattenAllPositions(positions: FleetPosition) {
+    return [
+        ...(positions.horizontal).flat(1),
+        ...(positions.vertical).flat(1),
+    ];
+}
+
 // TODO: make things more functional in attack
 export function attack(positions: FleetPosition, attackPoint: number[], attack: { [key: string]: AttackState }) {
     const matchedFleet = findMatchedShipFleet(positions, attackPoint, attack);
     if (matchedFleet && isKilled(matchedFleet ?? [], attackPoint, attack)) {
         return AttackState.Killed;
     }
-    const pos = [
-        ...(positions.horizontal).flat(1),
-        ...(positions.vertical).flat(1),
-    ];
+    const pos = flattenAllPositions(positions);
     return findAttackState(pos, attackPoint);
 }
 
@@ -76,4 +80,18 @@ export function findWinner(players: Player[]): boolean {
         return filteredAttack.length === environment.winner;
     });
     return winnerPlayer;
+}
+
+export function canDragAtPosition(positions: FleetPosition, newPosition: number[][]): boolean {
+    const existingPositions = flattenAllPositions(positions);
+    if (existingPositions.length < 1 || newPosition.length < 1) {
+        return true;
+    }
+    const allOccupiedPositions = existingPositions.reduce((acc, [a, b]: number[]) => [
+        ...acc,
+        ...findSurroundingPoints([a, b]),
+    ], <number[][]>[])
+    return !newPosition.some(pos =>
+        allOccupiedPositions.some(p => p.toString() === pos.toString())
+    );
 }
