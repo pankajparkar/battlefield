@@ -29,9 +29,6 @@ export class BattleGridComponent implements OnInit {
   @Input() get positions() {
     return this._positions;
   }
-
-  constructor() { }
-
   set positions(pos: FleetPosition | null) {
     this._positions = pos || JSON.parse(
       JSON.stringify(defaultPostion)
@@ -39,10 +36,10 @@ export class BattleGridComponent implements OnInit {
     this.battleGrids = this.generateGrid(10);
   }
 
+  constructor() { }
+
   generateEmptyArray(num: number): number[] {
-    const array = new Array(num);
-    array.fill(0);
-    return array;
+    return new Array(num).fill(0);
   }
 
   generateGrid(num: number) {
